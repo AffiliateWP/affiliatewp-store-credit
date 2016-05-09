@@ -47,6 +47,44 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		return update_user_meta( $user_id, 'affwp_wc_credit_balance', $new_balance );
 	}
 
+	/**
+	 * Edit a store credit payment
+	 *
+	 * @access protected
+	 * @since 0.1
+	 * @param int $referral_id The referral ID
+	 * @return bool false if adding failed, object otherwise
+	 */
+	protected function edit_payment( $referral_id ) {
+
+		// Return if the referral ID isn't valid
+		if( ! is_numeric( $referral_id ) ) {
+			return;
+		}
+
+		// Get the referral object
+		$referral   = affwp_get_referral( $referral_id );
+
+		// Get the referral amounts
+		$old_amount = $referral->amount;
+		$new_amount = $data['amount'];
+
+		// Get the user id
+		$user_id    = affwp_get_affiliate_user_id( $referral->affiliate_id );
+
+		// Get the user's current woocommerce credit balance
+		$current_balance = get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
+
+		if ( $new_amount > $old_amount ) {
+			$new_balance = floatval( $current_balance + $new_amount );
+
+		} elseif ( $new_amount < $old_amount ) {
+			$new_balance = floatval( $current_balance - $new_amount );
+		}
+
+		return update_user_meta( $user_id, 'affwp_wc_credit_balance', $new_balance );
+	}
+
 
 	/**
 	 * Remove a payment from a referrer

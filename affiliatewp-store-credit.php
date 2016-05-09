@@ -120,7 +120,7 @@ final class AffiliateWP_Store_Credit {
 	 */
 	private function includes() {
 		if( is_admin() ) {
-			require_once self::$plugin_dir . 'admin/settings.php';
+			require_once self::$plugin_dir . 'includes/admin/settings.php';
 		}
 
 		// Check that store credit is enabled
@@ -136,6 +136,8 @@ final class AffiliateWP_Store_Credit {
 				require_once self::$plugin_dir . 'integrations/class-' . $filename . '.php';
 			}
 		}
+
+		require_once self::$plugin_dir . 'includes/dashboard.php';
 	}
 }
 
