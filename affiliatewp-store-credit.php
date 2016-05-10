@@ -141,7 +141,6 @@ final class AffiliateWP_Store_Credit {
 	}
 }
 
-
 /**
  * The main function responsible for returning the one true AffiliateWP_Store_Credit
  * instance to functions everywhere
@@ -150,10 +149,15 @@ final class AffiliateWP_Store_Credit {
  * @return object The one true AffiliateWP_Store_Credit instance
  */
 function affiliatewp_store_credit() {
-	if( ! function_exists( 'affiliate_wp' ) ) {
-		return;
-	}
+	if ( ! class_exists( 'Affiliate_WP' ) ) {
+        if ( ! class_exists( 'AffiliateWP_Activation' ) ) {
+            require_once 'includes/class-activation.php';
+        }
 
-	return AffiliateWP_Store_Credit::instance();
+        $activation = new AffiliateWP_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
+        $activation = $activation->run();
+    } else {
+        return AffiliateWP_Store_Credit::instance();
+    }
 }
 add_action( 'plugins_loaded', 'affiliatewp_store_credit', 100 );
