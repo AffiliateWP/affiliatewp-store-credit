@@ -244,9 +244,9 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		if( $coupon_code = $this->check_for_coupon( $coupons ) ) {
 
 			// Bail if the user ID in the coupon does not match the current user.
-			$user_id_from_coupon = absint( stripos( $coupon_code, '_' ) + 1 );
+			$user_id_from_coupon = intval( substr( $coupon_code, stripos( $coupon_code, '_' ) +1 ) );
 
-			if ( absint( $user_id ) === $user_id_from_coupon ) {
+			if ( intval( $user_id ) === $user_id_from_coupon ) {
 				// Process the coupon usage and remove the amount from the user's credit balance
 				$this->process_used_coupon( $user_id, $coupon_code );
 			} else {
