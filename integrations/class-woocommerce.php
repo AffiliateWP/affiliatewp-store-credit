@@ -9,7 +9,11 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * @since 2.0.0
 	 */
 	public function init() {
+
+		// Set integration context
 		$this->context = 'woocommerce';
+
+		$this->expires = date( 'Y-m-d', strtotime( '+2 days', current_time( 'timestamp' ) ) );
 
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'action_add_checkout_notice' ) );
 
@@ -190,7 +194,8 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$user_id = ( $user_id ) ? $user_id : get_current_user_id();
 		$date = current_time( 'Ymd' );
 		$coupon_code = 'AFFILIATE-CREDIT-' . $date . '-' . $user_id;
-		$expires = date( 'Y-m-d', strtotime( '+2 days', current_time( 'timestamp' ) ) );
+
+		$expires = $this->expires;
 
 		$coupon = array(
 			'post_title' => $coupon_code,

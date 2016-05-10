@@ -1,7 +1,21 @@
 <?php
 
 abstract class AffiliateWP_Store_Credit_Base {
+
+	/**
+	 * Set the integration type
+	 *
+	 * @var [type]
+	 */
 	public $context;
+
+	/**
+	 * Set the expiration date of the coupon, if available
+	 * for the $context integration.
+	 *
+	 * @var $expire
+	 */
+	public $expire;
 
 	public function __construct() {
 		$this->init();
