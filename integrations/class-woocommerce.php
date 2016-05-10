@@ -11,7 +11,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	public function init() {
 		$this->context = 'woocommerce';
 
-		add_action( 'woocommerce_before_checkout_form', array( $this, 'action_add_checkout_notice' ) );
+		add_action( 'woocommerce_before_checkout_form',     array( $this, 'action_add_checkout_notice' ) );
 
 		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'checkout_actions' ) );
 
@@ -38,11 +38,11 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$referral = affwp_get_referral( $referral_id );
 
 		// Get the user id
-		$user_id = affwp_get_affiliate_user_id( $referral->affiliate_id );
+		$user_id  = affwp_get_affiliate_user_id( $referral->affiliate_id );
 
 		// Get the user's current woocommerce credit balance
 		$current_balance = get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
-		$new_balance = floatval( $current_balance + $referral->amount );
+		$new_balance     = floatval( $current_balance + $referral->amount );
 
 		return update_user_meta( $user_id, 'affwp_wc_credit_balance', $new_balance );
 	}
@@ -67,11 +67,11 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$referral = affwp_get_referral( $referral_id );
 
 		// Get the user id
-		$user_id = affwp_get_affiliate_user_id( $referral->affiliate_id );
+		$user_id  = affwp_get_affiliate_user_id( $referral->affiliate_id );
 
 		// Get the user's current woocommerce credit balance
 		$current_balance = get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
-		$new_balance = floatval( $current_balance - $referral->amount );
+		$new_balance     = floatval( $current_balance - $referral->amount );
 
 		return update_user_meta( $user_id, 'affwp_wc_credit_balance', $new_balance );
 	}
@@ -85,13 +85,25 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * @return void
 	 */
 	public function action_add_checkout_notice() {
-		$balance = (float) get_user_meta( get_current_user_id(), 'affwp_wc_credit_balance', true );
-		$cart_coupons = WC()->cart->get_applied_coupons();
+		$balance        = (float) get_user_meta( get_current_user_id(), 'affwp_wc_credit_balance', true );
+		$cart_coupons   = WC()->cart->get_applied_coupons();
 		$coupon_applied = $this->check_for_coupon( $cart_coupons );
 
-		// If the user has a credit balance and haven't already generated and applied a coupon code
+		$notice_subject = __( 'You have an account balance of', 'affiliatewp-store-credit' )
+		$notice_query   = __( 'Would you like to use it now?', 'affiliatewp-store-credit' )
+		$notice_action  = __( 'Apply', 'affiliatewp-store-credit' );
+
+		// If the user has a credit balance,
+		// and has not already generated and applied a coupon code
 		if( $balance && ! $coupon_applied ) {
-			wc_print_notice( sprintf( __( 'You have an account balance of <strong>%1$s</strong>. Would you like to use it now? <a href="%2$s" class="button">Apply</a>', 'affiliatewp-store-credit' ), wc_price( $balance ), add_query_arg( 'affwp_wc_apply_credit', 'true', WC()->cart->get_checkout_url() ) ), 'notice' );
+			wc_print_notice( sprintf( '%1$s <strong>%2$s</strong>. %3$s <a href="%4$s" class="button">%5$s</a>',
+				$notice_subject,
+				wc_price( $balance ),
+				$notice_query,
+				add_query_arg( 'affwp_wc_apply_credit', 'true', WC()->cart->get_checkout_url() ),
+				$notice_action
+				),
+			'notice' );
 		}
 	}
 
@@ -105,22 +117,22 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 */
 	public function checkout_actions() {
 		if( isset( $_GET['affwp_wc_apply_credit'] ) && $_GET['affwp_wc_apply_credit'] ) {
-			$user_id = get_current_user_id();
+			$user_id            = get_current_user_id();
 
 			// Get the credit balance and cart total
-			$credit_balance = (float) get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
-			$cart_total     = (float) $this->calculate_cart_subtotal();
+			$credit_balance     = (float) get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
+			$cart_total         = (float) $this->calculate_cart_subtotal();
 
 			// Determine the max possible coupon value
-			$coupon_total = $this->calculate_coupon_amount( $credit_balance, $cart_total );
+			$coupon_total       = $this->calculate_coupon_amount( $credit_balance, $cart_total );
 
 			// Bail if the coupon value was 0
-			if( $coupon_total <= 0 ) {
+			if( $coupon_total < = 0 ) {
 				return;
 			}
 
 			// Attempt to generate a coupon code
-			$coupon_code = $this->generate_coupon( $user_id, $coupon_total );
+			$coupon_code        = $this->generate_coupon( $user_id, $coupon_total );
 
 			// If a coupon code was successfully generated, apply it
 			if( $coupon_code ) {
@@ -162,9 +174,9 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		}
 
 		if( $credit_balance > $cart_total ) {
-			$coupon_amount = $cart_total;
+			$coupon_amount  = $cart_total;
 		} else {
-			$coupon_amount = $credit_balance;
+			$coupon_amount  = $credit_balance;
 		}
 
 		return $coupon_amount;
@@ -187,17 +199,17 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 			return false;
 		}
 
-		$user_id = ( $user_id ) ? $user_id : get_current_user_id();
-		$date = current_time( 'Ymd' );
+		$user_id     = ( $user_id ) ? $user_id : get_current_user_id();
+		$date        = current_time( 'Ymd' );
 		$coupon_code = 'AFFILIATE-CREDIT-' . $date . '-' . $user_id;
-		$expires = date( 'Y-m-d', strtotime( '+2 days', current_time( 'timestamp' ) ) );
+		$expires     = date( 'Y-m-d', strtotime( '+2 days', current_time( 'timestamp' ) ) );
 
 		$coupon = array(
-			'post_title' => $coupon_code,
+			'post_title'   => $coupon_code,
 			'post_content' => '',
-			'post_status' => 'publish',
-			'post_author' => 1,
-			'post_type'		=> 'shop_coupon'
+			'post_status'  => 'publish',
+			'post_author'  => 1,
+			'post_type'    => 'shop_coupon'
 		);
 
 		$new_coupon_id = wp_insert_post( $coupon );
@@ -230,13 +242,13 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	public function validate_coupon_usage( $order_id, $data ) {
 
 		// Get the order object
-		$order = new WC_Order( $order_id );
+		$order           = new WC_Order( $order_id );
 
 		// Get the user ID associated with the order
-		$user_id = $order->get_user_id();
+		$user_id         = $order->get_user_id();
 
 		// Grab an array of coupons used
-		$coupons = $order->get_used_coupons();
+		$coupons         = $order->get_used_coupons();
 
 		// If the order has coupons
 		if( $coupon_code = $this->check_for_coupon( $coupons ) ) {
@@ -285,7 +297,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 			return;
 		}
 
-		$coupon = new WC_Coupon( $coupon_code );
+		$coupon        = new WC_Coupon( $coupon_code );
 		$coupon_amount = $coupon->amount;
 
 		if( ! $coupon_amount ) {
@@ -294,7 +306,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 
 		// Get the user's current woocommerce credit balance
 		$current_balance = get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
-		$new_balance = floatval( $current_balance - $coupon_amount );
+		$new_balance     = floatval( $current_balance - $coupon_amount );
 
 		return update_user_meta( $user_id, 'affwp_wc_credit_balance', $new_balance );
 	}
