@@ -223,9 +223,11 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 *
 	 * @access public
 	 * @since 0.1
-	 * @param int $order_id The ID of an order
-	 * @param object $data
-	 * @return void
+	 * @param int     $order_id    The ID of an order
+	 * @param object  $data
+	 * @return void|boolean false  Calls the processed_used_coupon() method if
+	 *                             the user ID matches the user ID provided within
+	 *                             the coupon code, returns false if they do not match.
 	 */
 	public function validate_coupon_usage( $order_id, $data ) {
 
@@ -242,12 +244,15 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		if( $coupon_code = $this->check_for_coupon( $coupons ) ) {
 
 			// Bail if the user ID in the coupon does not match the current user.
-			if ( $user_id !== stripos( $coupon_code, '_' ) + 1 ) {
-				return $coupon_code;
+			$user_id_from_coupon = absint( stripos( $coupon_code, '_' ) + 1 );
+
+			if ( absint( $user_id ) === $user_id_from_coupon ) {
+				// Process the coupon usage and remove the amount from the user's credit balance
+				$this->process_used_coupon( $user_id, $coupon_code );
+			} else {
+				return false;
 			}
 
-			// Process the coupon usage and remove the amount from the user's credit balance
-			$this->process_used_coupon( $user_id, $coupon_code );
 		}
 	}
 
