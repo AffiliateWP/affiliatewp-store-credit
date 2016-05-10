@@ -89,19 +89,20 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$cart_coupons   = WC()->cart->get_applied_coupons();
 		$coupon_applied = $this->check_for_coupon( $cart_coupons );
 
-		$notice_subject = __( 'You have an account balance of', 'affiliatewp-store-credit' )
-		$notice_query   = __( 'Would you like to use it now?', 'affiliatewp-store-credit' )
+		$notice_subject = __( 'You have an account balance of', 'affiliatewp-store-credit' );
+		$notice_query   = __( 'Would you like to use it now', 'affiliatewp-store-credit' );
 		$notice_action  = __( 'Apply', 'affiliatewp-store-credit' );
 
 		// If the user has a credit balance,
 		// and has not already generated and applied a coupon code
 		if( $balance && ! $coupon_applied ) {
-			wc_print_notice( sprintf( '%1$s <strong>%2$s</strong>. %3$s <a href="%4$s" class="button">%5$s</a>',
-				$notice_subject,
-				wc_price( $balance ),
-				$notice_query,
-				add_query_arg( 'affwp_wc_apply_credit', 'true', WC()->cart->get_checkout_url() ),
-				$notice_action
+			wc_print_notice(
+				sprintf( '%1$s <strong>%2$s</strong>. %3$s <a href="%4$s" class="button">%5$s</a>',
+					$notice_subject,
+					wc_price( $balance ),
+					$notice_query,
+					add_query_arg( 'affwp_wc_apply_credit', 'true', WC()->cart->get_checkout_url() ),
+					$notice_action
 				),
 			'notice' );
 		}
@@ -117,17 +118,17 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 */
 	public function checkout_actions() {
 		if( isset( $_GET['affwp_wc_apply_credit'] ) && $_GET['affwp_wc_apply_credit'] ) {
-			$user_id            = get_current_user_id();
+			$user_id           = get_current_user_id();
 
 			// Get the credit balance and cart total
-			$credit_balance     = (float) get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
-			$cart_total         = (float) $this->calculate_cart_subtotal();
+			$credit_balance    = (float) get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
+			$cart_total        = (float) $this->calculate_cart_subtotal();
 
 			// Determine the max possible coupon value
-			$coupon_total       = $this->calculate_coupon_amount( $credit_balance, $cart_total );
+			$coupon_total      = $this->calculate_coupon_amount( $credit_balance, $cart_total );
 
 			// Bail if the coupon value was 0
-			if( $coupon_total < = 0 ) {
+			if( $coupon_total <= 0 ) {
 				return;
 			}
 
