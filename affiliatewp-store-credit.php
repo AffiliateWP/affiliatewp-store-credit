@@ -155,7 +155,7 @@ function affiliatewp_store_credit() {
         $activation = new AffiliateWP_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
         $activation = $activation->run();
     } else {
-        return AffiliateWP_Leaderboard::instance();
+        return AffiliateWP_Store_Credit::instance();
     }
 }
 add_action( 'plugins_loaded', 'affiliatewp_store_credit', 100 );
