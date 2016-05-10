@@ -53,6 +53,7 @@ class AffiliateWP_Store_Credit_Dashboard {
 		if ( ! $this->get_store_credit() ) {
 			return;
 		}
+
 		// The phrase to return
 		$phrase       = __( 'You have a store credit balance of', 'affiliate-wp-store-credit' );
 
