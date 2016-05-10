@@ -188,8 +188,8 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		}
 
 		$user_id = ( $user_id ) ? $user_id : get_current_user_id();
-		$date = current_time( 'Ymd' );
-		$coupon_code = 'AFFILIATE-CREDIT-' . $date . '-' . $user_id;
+		$date = current_time( 'Ymds' );
+		$coupon_code = 'AFFILIATE-CREDIT-' . $date . '_' . $user_id;
 		$expires = date( 'Y-m-d', strtotime( '+2 days', current_time( 'timestamp' ) ) );
 
 		$coupon = array(
@@ -240,6 +240,11 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 
 		// If the order has coupons
 		if( $coupon_code = $this->check_for_coupon( $coupons ) ) {
+
+			// Bail if the user ID in the coupon does not match the current user.
+			if ( $user_id !== stripos( $coupon_code, '_' ) + 1 ) {
+				return $coupon_code;
+			}
 
 			// Process the coupon usage and remove the amount from the user's credit balance
 			$this->process_used_coupon( $user_id, $coupon_code );
