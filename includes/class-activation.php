@@ -44,7 +44,7 @@ class AffiliateWP_Activation {
         if ( isset( $plugins[$this->plugin_path . '/' . $this->plugin_file]['Name'] ) ) {
             $this->plugin_name = str_replace( 'AffiliateWP - ', '', $plugins[$this->plugin_path . '/' . $this->plugin_file]['Name'] );
         } else {
-            $this->plugin_name = __( 'This plugin', 'affiliatewp-order-details-for-affiliates' );
+            $this->plugin_name = __( 'This plugin', 'affiliatewp-store-credit' );
         }
 
         // Is AffiliateWP installed?
@@ -79,10 +79,10 @@ class AffiliateWP_Activation {
     public function missing_affiliatewp_notice() {
 
         if ( $this->has_affiliatewp ) {
-           echo '<div class="error"><p>' .  $this->plugin_name . sprintf( __( ' requires %sAffiliateWP%s. Please activate it to continue.', 'affiliatewp-order-details-for-affiliates' ), '<a href="http://affiliatewp.com/" title="AffiliateWP" target="_blank">', '</a>' ) . '</p></div>';
+           echo '<div class="error"><p>' .  $this->plugin_name . sprintf( __( ' requires %sAffiliateWP%s. Please activate it to continue.', 'affiliatewp-store-credit' ), '<a href="https://affiliatewp.com/" title="AffiliateWP" target="_blank">', '</a>' ) . '</p></div>';
 
         } else {
-            echo '<div class="error"><p>' . $this->plugin_name . sprintf( __( ' requires %sAffiliateWP%s. Please install it to continue.', 'affiliatewp-order-details-for-affiliates' ), '<a href="http://affiliatewp.com/" title="AffiliateWP" target="_blank">', '</a>' ) . '</p></div>';
+            echo '<div class="error"><p>' . $this->plugin_name . sprintf( __( ' requires %sAffiliateWP%s. Please install it to continue.', 'affiliatewp-store-credit' ), '<a href="https://affiliatewp.com/" title="AffiliateWP" target="_blank">', '</a>' ) . '</p></div>';
         }
     }
 }
