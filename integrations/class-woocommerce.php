@@ -200,10 +200,21 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 			return false;
 		}
 
-		$user_id     = ( $user_id ) ? $user_id : get_current_user_id();
-		$date        = current_time( 'Ymd' );
-		$coupon_code = 'AFFILIATE-CREDIT-' . $date . '-' . $user_id;
-		$expires     = date( 'Y-m-d', strtotime( '+2 days', current_time( 'timestamp' ) ) );
+		$user_id      = ( $user_id ) ? $user_id : get_current_user_id();
+		$user_info    = get_userdata( $user_id );
+		$affiliate_id = ( $affiliate_id ) ? $affiliate_id : affwp_get_affiliate_id();
+
+		// Get the user email and affiliate payment email addresses, to match against customer_email below.
+		$user_emails  = array();
+		$user_emails  = implode( ', ',
+			array(
+				$user_info->user_email,
+				affwp_get_affiliate_payment_email( $affiliate_id )
+			);
+
+		$date         = current_time( 'Ymds' );
+		$coupon_code  = 'AFFILIATE-CREDIT-' . $date . '_' . $user_id;
+		$expires      = date( 'Y-m-d', strtotime( '+2 days', current_time( 'timestamp' ) ) );
 
 		$coupon = array(
 			'post_title'   => $coupon_code,
@@ -223,6 +234,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 			update_post_meta( $new_coupon_id, 'expiry_date', $expires );
 			update_post_meta( $new_coupon_id, 'apply_before_tax', 'yes' );
 			update_post_meta( $new_coupon_id, 'free_shipping', 'no' );
+			update_post_meta( $new_coupon_id, 'customer_email', $user_emails );
 
 			return $coupon_code;
 		}
@@ -235,27 +247,36 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Validate a coupon
 	 *
 	 * @access public
-	 * @since 0.1
-	 * @param int $order_id The ID of an order
-	 * @param object $data
-	 * @return void
+	 * @since  0.1
+	 * @param  int     $order_id   The ID of an order
+	 * @param  object  $data       The order data
+	 * @return void|boolean false  Calls the processed_used_coupon() method if
+	 *                             the user ID matches the user ID provided within
+	 *                             the coupon code, returns false if they do not match.
 	 */
 	public function validate_coupon_usage( $order_id, $data ) {
 
 		// Get the order object
-		$order           = new WC_Order( $order_id );
+		$order   = new WC_Order( $order_id );
 
 		// Get the user ID associated with the order
-		$user_id         = $order->get_user_id();
+		$user_id = $order->get_user_id();
 
 		// Grab an array of coupons used
-		$coupons         = $order->get_used_coupons();
+		$coupons = $order->get_used_coupons();
 
 		// If the order has coupons
 		if( $coupon_code = $this->check_for_coupon( $coupons ) ) {
 
-			// Process the coupon usage and remove the amount from the user's credit balance
-			$this->process_used_coupon( $user_id, $coupon_code );
+			// Bail if the user ID in the coupon does not match the current user.
+			$user_id_from_coupon = intval( substr( $coupon_code, stripos( $coupon_code, '_' ) +1 ) );
+
+			if ( intval( $user_id ) === $user_id_from_coupon ) {
+				// Process the coupon usage and remove the amount from the user's credit balance
+				$this->process_used_coupon( $user_id, $coupon_code );
+			} else {
+				return false;
+			}
 		}
 	}
 
