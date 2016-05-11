@@ -210,7 +210,8 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 			array(
 				$user_info->user_email,
 				affwp_get_affiliate_payment_email( $affiliate_id )
-			);
+			)
+		);
 
 		$date         = current_time( 'Ymds' );
 		$coupon_code  = 'AFFILIATE-CREDIT-' . $date . '_' . $user_id;
