@@ -9,6 +9,15 @@ abstract class AffiliateWP_Store_Credit_Base {
 	 */
 	public $context;
 
+
+	public function __construct() {
+		$this->init();
+
+		add_action( 'affwp_set_referral_status', array( $this, 'process_payout' ), 10, 3 );
+	}
+
+	public function init() {}
+
 	/**
 	 * Set the expiration date of the coupon, if available
 	 *
@@ -23,15 +32,6 @@ abstract class AffiliateWP_Store_Credit_Base {
 
 		return apply_filters( 'affwp_store_credit_expires', $expires );
 	}
-
-	public function __construct() {
-		$this->init();
-
-		add_action( 'affwp_set_referral_status', array( $this, 'process_payout' ), 10, 3 );
-	}
-
-	public function init() {}
-
 
 	/**
 	 * Process payouts
