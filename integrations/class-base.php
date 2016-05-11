@@ -19,9 +19,9 @@ abstract class AffiliateWP_Store_Credit_Base {
 	 */
 	public function coupon_expires() {
 
-		$expire = date( 'Y-m-d-s', strtotime( '+2 days', current_time( 'timestamp' ) ) );
+		$expires = date( 'Y-m-d-s', strtotime( '+2 days', current_time( 'timestamp' ) ) );
 
-		return apply_filters( 'affwp_store_credit_expires', $expire );
+		return apply_filters( 'affwp_store_credit_expires', $expires );
 	}
 
 	public function __construct() {

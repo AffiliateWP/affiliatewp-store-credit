@@ -201,9 +201,9 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		}
 
 		$user_id     = ( $user_id ) ? $user_id : get_current_user_id();
-		$date        = current_time( 'Ymd' );
-		$coupon_code = 'AFFILIATE-CREDIT-' . $date . '-' . $user_id;
-		$expires     = date( 'Y-m-d', strtotime( '+2 days', current_time( 'timestamp' ) ) );
+		$date        = current_time( 'Ymds' );
+		$coupon_code = 'AFFILIATE-CREDIT-' . $date . '_' . $user_id;
+		$expires     = $this->expires();
 
 		$coupon = array(
 			'post_title'   => $coupon_code,
