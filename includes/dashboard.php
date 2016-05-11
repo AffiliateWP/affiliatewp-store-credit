@@ -11,7 +11,7 @@ class AffiliateWP_Store_Credit_Dashboard {
 	 */
 	public function __construct() {
 
-		add_action( 'affwp_affiliate_dashboard_notices', array( $this, 'the_store_credit' ) );
+		add_action( 'affwp_affiliate_dashboard_after_campaign_stats', array( $this, 'the_store_credit' ) );
 	}
 
 	/**
@@ -44,35 +44,43 @@ class AffiliateWP_Store_Credit_Dashboard {
 	 *
 	 * @access public
 	 * @since  2.1.0
-	 * @return mixed string A filterable text-only $phrase and the current store credit amount, if any.
-	 *                      Defaults to "You have a store credit balance of"
+	 * @return mixed string A filterable text-only $notice and the current store credit amount, if any.
+	 *                      Defaults to "You have a store credit balance of".
 	 */
 	public function the_store_credit() {
 
-		// Bail if no store credit balance
+		// Bail if there is no store credit balance for the affiliate
 		if ( ! $this->get_store_credit() ) {
 			return;
 		}
 
-		// The phrase to return
-		$phrase       = __( 'You have a store credit balance of', 'affiliate-wp-store-credit' );
+		// The notice to return indicating the affiliate has a balance
+		$notice = __( 'You have a store credit balance of', 'affiliatewp-store-credit' );
 
-		apply_filters( 'affwp_show_store_credit_phrase', $phrase );
+		apply_filters( 'affwp_store_credit_affiliate_notice', $notice );
 
 		// Get the store credit available, add to phrase
-		$store_credit = wp_sprintf( $phrase . ' %1s.',
+		$store_credit = wp_sprintf( ' %1s %2s.',
+			$phrase,
 			$this->get_store_credit()
 		);
 
+		?>
 
-		// Create final output
-		$output       = '<div class="affwp-notice affwp-store-credit-notice">';
-		$output      .= esc_html__( $store_credit, 'affiliate-wp-store-credit' );
-		$output      .= do_action( 'affwp_store_credit_dashboard_notice' );
-		$output      .= '</div>';
+		<table class="affwp-table affwp-store-credit-table">
+			<thead>
+				<tr>
+					<th><?php _e( 'Store Credit', 'affiliatewp-store-credit' ); ?></th>
+				</tr>
+			</thead>
 
+			<tbody>
+				<tr>
+					<td><?php esc_html_e( $store_credit, 'affiliatewp-store-credit' ); ?></td>
+				</tr>
+			</tbody>
+		</table>
 
-		echo $output;
-	}
+	<?php }
 }
 new AffiliateWP_Store_Credit_Dashboard;
