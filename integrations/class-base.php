@@ -32,19 +32,22 @@ abstract class AffiliateWP_Store_Credit_Base {
 	 * Validates usage of the coupon.
 	 *
 	 * @since  2.1
+	 * @param  int     $order_id   The ID of an order
+	 * @param  object  $data       The order data
 	 *
-	 * @return void  Since the manners by which coupon usage may be
-	 *               validated vary greatly by integration, this
-	 *               method does not supply any direct validation
-	 *               itself.
+	 * @return void    Since the manners by which coupon usage may be
+	 *                 validated vary greatly by integration, this
+	 *                 method does not supply any direct validation
+	 *                 itself.
 	 *
-	 *               Generalized validation, such as typecasting,
-	 *               defining arbitrary $desired and $actual vars,
-	 *               and comparisons may be added as integrations
-	 *               continue to be extended in this add-on.
+	 *                 Generalized validation, such as typecasting,
+	 *                 defining arbitrary $desired and $actual vars,
+	 *                 and comparisons may be added as integrations
+	 *                 continue to be extended in this add-on.
 	 */
-	public function validate_coupon_usage() {
-
+	public function validate_coupon_usage( $order_id, $data ) {
+		$order_id = '';
+		$data     = '';
 	}
 
 	/**
