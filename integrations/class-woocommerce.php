@@ -205,7 +205,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
  -		$affiliate_id = ( $affiliate_id ) ? $affiliate_id : affwp_get_affiliate_id();
 		$date        = current_time( 'Ymds' );
 		$coupon_code = 'AFFILIATE-CREDIT-' . $date . '_' . $user_id;
-		$expires     = $this->expires();
+		$expires     = $this->coupon_expires();
 
 		// Get the user email and affiliate payment email addresses, to match against customer_email below.
 		$user_emails  = array();
