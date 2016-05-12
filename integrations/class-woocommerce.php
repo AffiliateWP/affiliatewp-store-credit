@@ -216,10 +216,6 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 			)
 		);
 
-		$date         = current_time( 'Ymds' );
-		$coupon_code  = 'AFFILIATE-CREDIT-' . $date . '_' . $user_id;
-		$expires      = date( 'Y-m-d', strtotime( '+2 days', current_time( 'timestamp' ) ) );
-
 		$coupon = array(
 			'post_title'   => $coupon_code,
 			'post_content' => '',
