@@ -10,6 +10,7 @@ abstract class AffiliateWP_Store_Credit_Base {
 	 */
 	public $context;
 
+
 	public function __construct() {
 		$this->init();
 
@@ -27,6 +28,20 @@ abstract class AffiliateWP_Store_Credit_Base {
 	 */
 	public function init() {}
 
+	/**
+	 * Set the expiration date of the coupon, if available
+	 *
+	 * @since  2.1
+	 *
+	 * @return int|date The future date on which this coupon expires.
+	 *                  Defaults to 2 days after coupon creation.
+	 */
+	public function coupon_expires() {
+
+		$expires = date( 'Y-m-d-s', strtotime( '+2 days', current_time( 'timestamp' ) ) );
+
+		return apply_filters( 'affwp_store_credit_expires', $expires );
+	}
 
 	/**
 	 * Validates usage of the coupon.
