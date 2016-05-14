@@ -137,7 +137,10 @@ final class AffiliateWP_Store_Credit {
 			}
 		}
 
+		// Front-end; renders in affiliate dashboard statistics area
 		require_once self::$plugin_dir . 'includes/dashboard.php';
+		// Include store credit functions
+		require_once self::$plugin_dir . 'includes/store-credit-functions.php';
 	}
 }
 
