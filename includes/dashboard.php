@@ -30,6 +30,8 @@ class AffiliateWP_Store_Credit_Dashboard {
 		$current_balance = get_user_meta( $affiliate_id, 'affwp_wc_credit_balance', true );
 
 		// Don't show anything if the affiliate has a zero balance
+		// we may wish to extend this method to provide a default zero-balance
+		// for affiliates that have a store credit balance of zero.
 		if ( $current_balance <= 0 ) {
 			return;
 		}
@@ -70,7 +72,7 @@ class AffiliateWP_Store_Credit_Dashboard {
 		<table class="affwp-table affwp-store-credit-table">
 			<thead>
 				<tr>
-					<th><?php _e( 'Store Credit', 'affiliatewp-store-credit' ); ?></th>
+					<th><?php _e( 'Available Store Credit', 'affiliatewp-store-credit' ); ?></th>
 				</tr>
 			</thead>
 
