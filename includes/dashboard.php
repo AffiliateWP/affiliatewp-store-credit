@@ -59,11 +59,11 @@ class AffiliateWP_Store_Credit_Dashboard {
 		// The notice to return indicating the affiliate has a balance
 		$notice = __( 'You have a store credit balance of', 'affiliatewp-store-credit' );
 
-		apply_filters( 'affwp_store_credit_affiliate_notice', $notice );
+		$notice = apply_filters( 'affwp_store_credit_affiliate_notice', $notice );
 
 		// Get the store credit available, add to phrase
 		$store_credit = wp_sprintf( ' %1s %2s.',
-			$phrase,
+			$notice,
 			$this->get_store_credit()
 		);
 
