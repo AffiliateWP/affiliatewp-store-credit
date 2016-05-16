@@ -7,7 +7,7 @@ class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 	 * Get things started
 	 *
 	 * @access public
-	 * @since 2.0.0
+	 * @since  2.0.0
 	 * @return void
 	 */
 	public function init() {
@@ -28,7 +28,7 @@ class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 	 * Display a notice if EDD Wallet is missing
 	 *
 	 * @access public
-	 * @since 2.0.0
+	 * @since  2.0.0
 	 * @return void
 	 */
 	public function missing_edd_wallet() {
@@ -40,8 +40,8 @@ class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 	 * Add a payment to a referrer
 	 *
 	 * @access protected
-	 * @since 2.0.0
-	 * @param int $referral_id The referral ID
+	 * @since  2.0.0
+	 * @param  int $referral_id The referral ID
 	 * @return
 	 */
 	protected function add_payment( $referral_id ) {
@@ -68,8 +68,8 @@ class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 	 * Remove a payment from a referrer
 	 *
 	 * @access protected
-	 * @since 2.0.0
-	 * @param int $referral_id The referral ID
+	 * @since  2.0.0
+	 * @param  int $referral_id The referral ID
 	 * @return
 	 */
 	protected function remove_payment( $referral_id ) {
@@ -101,9 +101,9 @@ class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 	 * Setup custom Wallet type
 	 *
 	 * @access public
-	 * @since 2.0.0
-	 * @param string $item_type The item type
-	 * @param object $item The item object
+	 * @since  2.0.0
+	 * @param  string $item_type The item type
+	 * @param  object $item The item object
 	 * @return string The textual item type
 	 */
 	public function setup_wallet_type( $item_type, $item ) {
@@ -125,9 +125,9 @@ class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 	 * Setup custom Wallet actions
 	 *
 	 * @access public
-	 * @since 2.0.0
-	 * @param string $item_actions The item actions
-	 * @param object $item The item object
+	 * @since  2.0.0
+	 * @param  string $item_actions The item actions
+	 * @param  object $item The item object
 	 * @return string The available actions
 	 */
 	public function setup_wallet_actions( $item_actions, $item ) {

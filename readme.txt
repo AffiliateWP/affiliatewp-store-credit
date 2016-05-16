@@ -1,18 +1,18 @@
 === AffiliateWP - Store Credit ===
 Plugin Name: AffiliateWP - Store Credit
-Plugin URI: http://affiliatewp.com
+Plugin URI: https://affiliatewp.com
 Description: Pay AffiliateWP referrals as store credit. Currently supports WooCommerce and Easy Digital Downloads.
 Author: ramiabraham
 Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214
 Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital downloads, edd
 License: GPLv2 or later
-Tested up to: 4.4
+Tested up to: 4.6-alpha-37418
 Stable tag: 2.0
 Requires at least: 3.5
 
 == Description ==
 
-> This plugin requires [AffiliateWP](http://affiliatewp.com/ "AffiliateWP") v1.7+ in order to function.
+> This plugin requires [AffiliateWP](https://affiliatewp.com/ "AffiliateWP") v1.7+ in order to function.
 
 This plugin allows you to pay your affiliates in store credit. At this time it supports the WooCommerce and Easy Digital Downloads integrations in AffiliateWP.
 
@@ -52,6 +52,18 @@ A: Not at this time.
 
 
 == Changelog ==
+
+= 2.1 =
+
+* Store Credit add-on options have moved to their own AffiliateWP tab. It's part of the family now!
+
+* Fix [WooCommerce integration]: Store credit can now be used more than once per day by an affiliate when applying it toward the balances of purchases made in WooCommerce. Shop til you drop!
+
+* Fix [WooCommerce integration]: Store credit can now only be used by the affiliate for whom it was created. Credit where credit is due, and only where credit is due!
+
+* Added AffiliateWP activiation script. Having AffiliateWP installed and activated is probably a good idea if you'd like to use this add-on!
+
+* Fix [languages]: Adds translatable strings for the action_add_checkout_notice method. Bueno!
 
 = 2.0 =
 

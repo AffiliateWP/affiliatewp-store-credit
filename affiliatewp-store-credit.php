@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name:     AffiliateWP - Store Credit
- * Plugin URI:      http://affiliatewp.com
+ * Plugin URI:      https://affiliatewp.com
  * Description:     Pay AffiliateWP referrals as store credit
  * Author:          AffiliateWP Team
  * Contributors:    ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214
- * Version:         2.0.0
- * Author URI:      http://affiliatewp.com
+ * Version:         2.1
+ * Author URI:      https://affiliatewp.com
  * Text Domain:     affiliatewp-store-credit
  */
 
@@ -42,7 +42,7 @@ final class AffiliateWP_Store_Credit {
 			self::$instance = new AffiliateWP_Store_Credit;
 
 			self::$plugin_dir = plugin_dir_path( __FILE__ );
-			self::$version = '2.0.0';
+			self::$version = '2.1';
 
 			self::$instance->load_textdomain();
 			self::$instance->includes();
@@ -61,7 +61,7 @@ final class AffiliateWP_Store_Credit {
 	 */
 	public function __clone() {
 		// Cloning instance of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'affiliatewp-store-credit' ), '2.0.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'affiliatewp-store-credit' ), '2.1' );
 	}
 
 
@@ -74,7 +74,7 @@ final class AffiliateWP_Store_Credit {
 	 */
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'affiliatewp-store-credit' ), '2.0.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'affiliatewp-store-credit' ), '2.1' );
 	}
 
 
@@ -120,7 +120,7 @@ final class AffiliateWP_Store_Credit {
 	 */
 	private function includes() {
 		if( is_admin() ) {
-			require_once self::$plugin_dir . 'admin/settings.php';
+			require_once self::$plugin_dir . 'includes/admin/settings.php';
 		}
 
 		// Check that store credit is enabled
@@ -136,9 +136,11 @@ final class AffiliateWP_Store_Credit {
 				require_once self::$plugin_dir . 'integrations/class-' . $filename . '.php';
 			}
 		}
+
+		// Front-end; renders in affiliate dashboard statistics area
+		require_once self::$plugin_dir . 'includes/dashboard.php';
 	}
 }
-
 
 /**
  * The main function responsible for returning the one true AffiliateWP_Store_Credit
@@ -148,10 +150,15 @@ final class AffiliateWP_Store_Credit {
  * @return object The one true AffiliateWP_Store_Credit instance
  */
 function affiliatewp_store_credit() {
-	if( ! function_exists( 'affiliate_wp' ) ) {
-		return;
-	}
+	if ( ! class_exists( 'Affiliate_WP' ) ) {
+        if ( ! class_exists( 'AffiliateWP_Activation' ) ) {
+            require_once 'includes/class-activation.php';
+        }
 
-	return AffiliateWP_Store_Credit::instance();
+        $activation = new AffiliateWP_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
+        $activation = $activation->run();
+    } else {
+        return AffiliateWP_Store_Credit::instance();
+    }
 }
 add_action( 'plugins_loaded', 'affiliatewp_store_credit', 100 );
