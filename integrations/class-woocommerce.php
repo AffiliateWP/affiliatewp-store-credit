@@ -6,7 +6,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Get things started
 	 *
 	 * @access public
-	 * @since 2.0.0
+	 * @since  2.0.0
 	 */
 	public function init() {
 		$this->context = 'woocommerce';
@@ -23,8 +23,8 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Add a payment to a referrer
 	 *
 	 * @access protected
-	 * @since 0.1
-	 * @param int $referral_id The referral ID
+	 * @since  0.1
+	 * @param  int $referral_id The referral ID
 	 * @return bool false if adding failed, object otherwise
 	 */
 	protected function add_payment( $referral_id ) {
@@ -51,8 +51,8 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Edit a store credit payment
 	 *
 	 * @access protected
-	 * @since 0.1
-	 * @param int $referral_id The referral ID
+	 * @since  0.1
+	 * @param  int $referral_id The referral ID
 	 * @return bool false if adding failed, object otherwise
 	 */
 	protected function edit_payment( $referral_id ) {
@@ -90,8 +90,8 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Remove a payment from a referrer
 	 *
 	 * @access protected
-	 * @since 0.1
-	 * @param int $referral_id The referral ID
+	 * @since  0.1
+	 * @param  int $referral_id The referral ID
 	 * @return bool false if removing failed, object otherwise
 	 */
 	protected function remove_payment( $referral_id ) {
@@ -119,7 +119,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Add notice on checkout if user can checkout with coupon
 	 *
 	 * @access public
-	 * @since 0.1
+	 * @since  0.1
 	 * @return void
 	 */
 	public function action_add_checkout_notice() {
@@ -151,7 +151,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Process checkout actions
 	 *
 	 * @access public
-	 * @since 0.1
+	 * @since  0.1
 	 * @return void
 	 */
 	public function checkout_actions() {
@@ -186,7 +186,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Calculate the cart subtotal
 	 *
 	 * @access protected
-	 * @since 0.1
+	 * @since  0.1
 	 * @return float $cart_subtotal The subtotal
 	 */
 	protected function calculate_cart_subtotal() {
@@ -200,9 +200,9 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Calculate the amount of a coupon
 	 *
 	 * @access protected
-	 * @since 0.1
-	 * @param float $credit_balance The balance of a users account
-	 * @param float $cart_total The value of the current cart
+	 * @since  0.1
+	 * @param  float $credit_balance The balance of a users account
+	 * @param  float $cart_total The value of the current cart
 	 * @return float $coupon_amount The coupon amount
 	 */
 	protected function calculate_coupon_amount( $credit_balance, $cart_total ) {
@@ -226,9 +226,9 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Generate a coupon
 	 *
 	 * @access protected
-	 * @since 0.1
-	 * @param int $user_id The ID of a given user
-	 * @param float $amount The amount of the coupon
+	 * @since  0.1
+	 * @param  int $user_id The ID of a given user
+	 * @param  float $amount The amount of the coupon
 	 * @return mixed string $coupon_code The coupon code if successful, false otherwise
 	 */
 	protected function generate_coupon( $user_id = 0, $amount = 0 ){
@@ -273,9 +273,9 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Validate a coupon
 	 *
 	 * @access public
-	 * @since 0.1
-	 * @param int $order_id The ID of an order
-	 * @param object $data
+	 * @since  0.1
+	 * @param  int $order_id The ID of an order
+	 * @param  object $data
 	 * @return void
 	 */
 	public function validate_coupon_usage( $order_id, $data ) {
@@ -302,8 +302,8 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Check for a coupon
 	 *
 	 * @access protected
-	 * @since 0.1
-	 * @param array $coupons Coupons to check
+	 * @since  0.1
+	 * @param  array $coupons Coupons to check
 	 * @return mixed $coupon_code if found, false otherwise
 	 */
 	protected function check_for_coupon( $coupons = array() ) {
@@ -325,9 +325,9 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	 * Process a used coupon
 	 *
 	 * @access protected
-	 * @since 0.1
-	 * @param int $user_id The ID of a given user
-	 * @param string $coupon_code The coupon to process
+	 * @since  0.1
+	 * @param  int $user_id The ID of a given user
+	 * @param  string $coupon_code The coupon to process
 	 * @return mixed object if successful, false otherwise
 	 */
 	protected function process_used_coupon( $user_id = 0, $coupon_code = '' ) {
