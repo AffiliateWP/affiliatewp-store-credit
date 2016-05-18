@@ -5,7 +5,7 @@
  * Description:     Pay AffiliateWP referrals as store credit
  * Author:          AffiliateWP Team
  * Contributors:    ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214
- * Version:         2.1
+ * Version:         2.1.1
  * Author URI:      https://affiliatewp.com
  * Text Domain:     affiliatewp-store-credit
  */
@@ -42,7 +42,7 @@ final class AffiliateWP_Store_Credit {
 			self::$instance = new AffiliateWP_Store_Credit;
 
 			self::$plugin_dir = plugin_dir_path( __FILE__ );
-			self::$version = '2.1';
+			self::$version = '2.1.1';
 
 			self::$instance->load_textdomain();
 			self::$instance->includes();
@@ -61,7 +61,7 @@ final class AffiliateWP_Store_Credit {
 	 */
 	public function __clone() {
 		// Cloning instance of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'affiliatewp-store-credit' ), '2.1' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'affiliatewp-store-credit' ), '2.1.1' );
 	}
 
 
@@ -74,7 +74,7 @@ final class AffiliateWP_Store_Credit {
 	 */
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'affiliatewp-store-credit' ), '2.1' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'affiliatewp-store-credit' ), '2.1.1' );
 	}
 
 
