@@ -234,13 +234,24 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	protected function generate_coupon( $user_id = 0, $amount = 0 ){
 
 		$amount = floatval( $amount );
+
 		if( $amount <= 0 ) {
+			return false;
+		}
+
+		$affiliate = affiliate_wp()->affiliates->get_by( 'user_id', $user_id );
+
+		if ( $affiliate ) {
+			$affiliate_id = $affiliate->affiliate_id;
+		}
+
+		if ( ! $affiliate_id ) {
 			return false;
 		}
 
 		$user_id      = ( $user_id ) ? $user_id : get_current_user_id();
 		$user_info    = get_userdata( $user_id );
- -		$affiliate_id = ( $affiliate_id ) ? $affiliate_id : affwp_get_affiliate_id();
+		$affiliate_id = is_int( $affiliate_id ) ? $affiliate_id : affwp_get_affiliate_id( $user_id );
 		$date         = current_time( 'Ymds' );
 		$coupon_code  = 'AFFILIATE-CREDIT-' . $date . '_' . $user_id;
 		$expires      = $this->coupon_expires();
