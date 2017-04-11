@@ -79,9 +79,10 @@ abstract class AffiliateWP_Store_Credit_Base {
 	 */
 	public function process_payout( $referral_id, $new_status, $old_status ) {
 
-		error_log( 'Referral ID: ' . $referral_id);
-		error_log( 'New status: ' . $new_status);
-		error_log( 'Old status: ' . $old_status);
+		// Bail if the referral ID, new referral status, or old referral status is not provided.
+		if ( ! $referral_id || ! $new_status || ! $old_status ) {
+			return;
+		}
 
 		if( 'paid' === $new_status ) {
 			$this->add_payment( $referral_id );
