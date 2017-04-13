@@ -22,7 +22,7 @@ abstract class AffiliateWP_Store_Credit_Base {
 	/**
 	 * Define the $this->context here,
 	 * as well any hooks specific to
-	 * the integration being created
+	 * the integration being created.
 	 *
 	 * @since  2.0.0
 	 *
@@ -68,16 +68,37 @@ abstract class AffiliateWP_Store_Credit_Base {
 	}
 
 	/**
-	 * Process payouts
+	 * Processes payouts.
 	 *
 	 * @since  0.1
 	 * @access public
-	 * @param  int $referral_id The referral ID
-	 * @param  string $new_status The new status
-	 * @param  string $old_status The old status
+	 * @param  int    $referral_id  The referral ID.
+	 * @param  string $new_status   The new status.
+	 * @param  string $old_status   The old status.
 	 * @return void
 	 */
-	public function process_payout( $referral_id, $new_status, $old_status ) {
+	public function process_payout( $referral_id = 0, $new_status = '', $old_status = '' ) {
+
+		$affwp_store_credit = affiliatewp_store_credit();
+
+		// Bail if no referral ID is provided. new referral status, or old referral status is not provided.
+		if ( ! $referral_id || 0 === $referral_id ) {
+			$affwp_store_credit->log( 'AffiliateWP Store Credit: The referral ID could not be determined when processing this payout.' );
+			return;
+		}
+
+		// Bail if the new referral status for this referral is unset or an empty string.
+		if ( ! isset( $new_status ) || '' === $new_status ) {
+			$affwp_store_credit->log( 'AffiliateWP Store Credit: The new referral status could not be determined.' );
+			return;
+		}
+
+		// Also bail if the old referral status for this referral is unset or an empty string.
+		if ( ! isset( $old_status ) || '' === $old_status ) {
+			$affwp_store_credit->log( 'AffiliateWP Store Credit: The old referral status could not be determined.' );
+			return;
+		}
+
 		if( 'paid' === $new_status ) {
 			$this->add_payment( $referral_id );
 		} elseif( ( 'paid' === $old_status ) && ( 'unpaid' === $new_status ) ) {

@@ -18,15 +18,45 @@ if( ! defined( 'ABSPATH' ) ) {
 
 final class AffiliateWP_Store_Credit {
 
-
 	/**
-	 * @var AffiliateWP_Store_Credit The one true AffiliateWP_Store_Credit
+	 * The AffiliateWP_Store_Credit singleton instance.
+	 *
 	 * @since 0.1
+	 * @var AffiliateWP_Store_Credit instance.
 	 */
 	private static $instance;
 
+	/**
+	 * Plugin directory.
+	 *
+	 * @since 0.1
+	 * @var   string $plugin_dir
+	 */
 	private static $plugin_dir;
+
+	/**
+	 * The plugin version.
+	 *
+	 * @since 0.1
+	 * @var   float $version
+	 */
 	private static $version;
+
+	/**
+	 * True if the AffiliateWP core debugger is active.
+	 *
+	 * @since 2.1.2
+	 * @var   boolean $debug  Debug variable.
+	 */
+	public $debug;
+
+	/**
+	 * Holds the instance of Affiliate_WP_Logging.
+	 *
+	 * @since 2.1.2
+	 * @var   array $logs  Error logs.
+	 */
+	public $logs;
 
 
 	/**
@@ -46,6 +76,7 @@ final class AffiliateWP_Store_Credit {
 
 			self::$instance->load_textdomain();
 			self::$instance->includes();
+			self::$instance->init();
 		}
 
 		return self::$instance;
@@ -53,7 +84,7 @@ final class AffiliateWP_Store_Credit {
 
 
 	/**
-	 * Throw error on object clone
+	 * Throws an error on object clone.
 	 *
 	 * @since 2.0.0
 	 * @access protected
@@ -66,7 +97,7 @@ final class AffiliateWP_Store_Credit {
 
 
 	/**
-	 * Disable unserializing of the class
+	 * Disables unserializing of the class.
 	 *
 	 * @since 2.0.0
 	 * @access protected
@@ -79,7 +110,7 @@ final class AffiliateWP_Store_Credit {
 
 
 	/**
-	 * Loads the plugin language files
+	 * Loads the plugin language files.
 	 *
 	 * @since 0.1
 	 * @access public
@@ -112,7 +143,7 @@ final class AffiliateWP_Store_Credit {
 
 
 	/**
-	 * Include required files
+	 * Includes required files.
 	 *
 	 * @since 2.0.0
 	 * @access private
@@ -140,11 +171,42 @@ final class AffiliateWP_Store_Credit {
 		// Front-end; renders in affiliate dashboard statistics area
 		require_once self::$plugin_dir . 'includes/dashboard.php';
 	}
+
+
+	/**
+	 * Defines init processes for this instance.
+	 *
+	 * @since  2.1.2
+	 *
+	 * @return void
+	 */
+	public function init() {
+		$this->debug = (bool) affiliate_wp()->settings->get( 'debug_mode', false );
+
+		if( $this->debug ) {
+			$this->logs = new Affiliate_WP_Logging;
+		}
+	}
+
+	/**
+	 * Writes a log message.
+	 *
+	 * @access  public
+	 * @since   2.1.2
+	 *
+	 * @param string $message An optional message to log. Default is an empty string.
+	 */
+	public function log( $message = '' ) {
+
+		if ( $this->debug ) {
+			$this->logs->log( $message );
+		}
+	}
 }
 
 /**
  * The main function responsible for returning the one true AffiliateWP_Store_Credit
- * instance to functions everywhere
+ * instance to functions everywhere.
  *
  * @since 2.0.0
  * @return object The one true AffiliateWP_Store_Credit instance
