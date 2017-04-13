@@ -57,8 +57,6 @@ A: Not at this time.
 
 * Fix: In some cases, payouts would cause an error when the referral status could not be determined.
 
-* Store Credit add-on options have moved to their own AffiliateWP tab. It's part of the family now!
-
 = 2.1.1 =
 
 * Fix: Plugin version compatibility fix.
