@@ -258,11 +258,9 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 
 		// Get the user email and affiliate payment email addresses, to match against customer_email below.
 		$user_emails  = array();
-		$user_emails  = implode( ', ',
-			array(
-				$user_info->user_email,
-				affwp_get_affiliate_payment_email( $affiliate_id )
-			)
+		$user_emails  = array(
+			$user_info->user_email,
+			affwp_get_affiliate_payment_email( $affiliate_id )
 		);
 
 		$coupon = array(
