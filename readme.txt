@@ -7,7 +7,7 @@ Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214,
 Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital downloads, edd
 License: GPLv2 or later
 Tested up to: 4.8
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 Requires at least: 3.5
 
 == Description ==
