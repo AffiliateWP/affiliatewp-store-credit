@@ -3,11 +3,11 @@ Plugin Name: AffiliateWP - Store Credit
 Plugin URI: https://affiliatewp.com
 Description: Pay AffiliateWP referrals as store credit. Currently supports WooCommerce and Easy Digital Downloads.
 Author: ramiabraham
-Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214
+Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, drewapicture
 Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital downloads, edd
 License: GPLv2 or later
-Tested up to: 4.6-alpha-37418
-Stable tag: 2.1.1
+Tested up to: 4.8
+Stable tag: 2.1.2
 Requires at least: 3.5
 
 == Description ==
@@ -52,6 +52,10 @@ A: Not at this time.
 
 
 == Changelog ==
+
+= 2.1.3 =
+
+* Fix: Store credits sometimes fail to apply to WooCommerce carts at checkout.
 
 = 2.1.2 =
 

@@ -5,7 +5,7 @@
  * Description:     Pay AffiliateWP referrals as store credit
  * Author:          AffiliateWP Team
  * Contributors:    ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214
- * Version:         2.1.2
+ * Version:         2.1.3
  * Author URI:      https://affiliatewp.com
  * Text Domain:     affiliatewp-store-credit
  */
@@ -72,7 +72,7 @@ final class AffiliateWP_Store_Credit {
 			self::$instance = new AffiliateWP_Store_Credit;
 
 			self::$plugin_dir = plugin_dir_path( __FILE__ );
-			self::$version = '2.1.2';
+			self::$version = '2.1.3';
 
 			self::$instance->load_textdomain();
 			self::$instance->includes();
