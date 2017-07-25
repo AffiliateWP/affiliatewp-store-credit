@@ -54,7 +54,7 @@ class AffiliateWP_Store_Credit_Admin {
 	/**
 	 * Enables store credit on a per-affiliate basis.
 	 *
-	 * @since  TODO
+	 * @since  2.2
 	 *
 	 * @param  object  $affiliate Affiliate object.
 	 *
