@@ -12,6 +12,8 @@ class AffiliateWP_Store_Credit_Admin {
 	public function __construct() {
 		add_filter( 'affwp_settings_tabs', array( $this, 'register_settings_tab' ) );
 		add_filter( 'affwp_settings', array( $this, 'register_settings' ) );
+		add_action( 'affwp_edit_affiliate_end', array( $this, 'enable_store_credit' ) );
+		add_action( 'affwp_new_affiliate_end', array( $this, 'enable_store_credit' ) );
 	}
 
 	/**
@@ -47,6 +49,43 @@ class AffiliateWP_Store_Credit_Admin {
 		);
 
 		return $settings;
+	}
+
+	/**
+	 * Enables store credit on a per-affiliate basis.
+	 *
+	 * @since  TODO
+	 *
+	 * @param  object  $affiliate Affiliate object.
+	 *
+	 * @return void
+	 */
+	public function enable_store_credit( $affiliate ) {
+		if ( ! is_int( $affiliate->affiliate_id ) ) {
+			affiliate_wp()->utils->log( 'AffiliateWP Store Credit: Unable to retrieve affiliate ID in enable_store_credit method.' );
+			return false;
+		}
+
+		$checked = affwp_get_affiliate_meta( $affiliate->affiliate_id, 'store_credit_enabled', true );
+
+		?>
+
+		<tr class="form-row" id="affwp-store-credit-row">
+
+				<th scope="row">
+					<label for="enable_store_credit"><?php _e( 'Enable Store Credit?', 'affiliate-wp' ); ?></label>
+				</th>
+
+				<td>
+					<label class="description">
+						<input type="checkbox" name="enable_store_credit" id="enable_store_credit" value="1" <?php checked( 1, $checked, true ); ?>"/>
+						<?php _e( 'Enables payouts via store credit for this affiliate.', 'affiliate-wp' ); ?>
+					</label>
+				</td>
+
+			</tr>
+
+			<?php
 	}
 
 }
