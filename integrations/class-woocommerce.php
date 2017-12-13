@@ -73,7 +73,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$user_id    = affwp_get_affiliate_user_id( $referral->affiliate_id );
 
 		// Get the user's current woocommerce credit balance
-		$current_balance = get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
+		$current_balance = (float) get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
 
 		if ( $new_amount > $old_amount ) {
 			$new_balance = floatval( $current_balance + $new_amount );
@@ -139,7 +139,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 					$notice_subject,
 					wc_price( $balance ),
 					$notice_query,
-					add_query_arg( 'affwp_wc_apply_credit', 'true', WC()->cart->get_checkout_url() ),
+					add_query_arg( 'affwp_wc_apply_credit', 'true', wc_get_checkout_url() ),
 					$notice_action
 				),
 			'notice' );
