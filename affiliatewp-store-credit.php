@@ -170,6 +170,12 @@ final class AffiliateWP_Store_Credit {
 
 		// Front-end; renders in affiliate dashboard statistics area
 		require_once self::$plugin_dir . 'includes/dashboard.php';
+
+		// Shortcode.
+		require_once self::$plugin_dir . 'includes/class-shortcode.php';
+
+		// Functions.
+		require_once self::$plugin_dir . 'includes/functions.php';
 	}
 
 
