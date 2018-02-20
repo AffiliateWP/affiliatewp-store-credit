@@ -4,19 +4,20 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Get the store credit balance available to the affiliate
+ * Get the affiliate's WooCommerce store credit balance.
  *
  * @access public
  * @since 2.1.0
- * @return void
+ * 
+ * @return string $current_balance The affiliate's current store credit balance.
  */
 function affwp_store_credit_balance() {
 
-	// Get the user id
-	$affiliate_id = affwp_get_affiliate_id();
+	// Get the affiliate's user ID.
+	$user_id = affwp_get_affiliate_user_id( affwp_get_affiliate_id() );
 
-	// Get the current store credit balance
-	$current_balance = get_user_meta( $affiliate_id, 'affwp_wc_credit_balance', true );
+	// Get the current store credit balance.
+	$current_balance = get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
 
 	// Don't show anything if the affiliate has a zero balance
 	// we may wish to extend this method to provide a default zero-balance
