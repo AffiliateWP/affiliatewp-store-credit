@@ -71,19 +71,16 @@ A: Not at this time.
 
 = 2.1 =
 
-* Store Credit add-on options have moved to their own AffiliateWP tab. It's part of the family now!
-
+* New: Store Credit add-on options have moved to their own AffiliateWP tab. It's part of the family now!
+* New: An "Available Store Credit" section has been added to the "Statistics" tab of the Affiliate Area 
 * Fix [WooCommerce integration]: Store credit can now be used more than once per day by an affiliate when applying it toward the balances of purchases made in WooCommerce. Shop til you drop!
-
 * Fix [WooCommerce integration]: Store credit can now only be used by the affiliate for whom it was created. Credit where credit is due, and only where credit is due!
-
-* Added AffiliateWP activation script. Having AffiliateWP installed and activated is probably a good idea if you'd like to use this add-on!
-
+* New: Added AffiliateWP activation script. Having AffiliateWP installed and activated is probably a good idea if you'd like to use this add-on!
 * Fix [languages]: Adds translatable strings for the action_add_checkout_notice method. Bueno!
 
 = 2.0 =
 
-* Added support for Easy Digital Downloads
+* New: Added support for Easy Digital Downloads
 
 = 1.1 =
 * Fix for WooCommerce 2.3.3+: Run checkout actions after cart is loaded from session.
