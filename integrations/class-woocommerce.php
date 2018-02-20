@@ -139,7 +139,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 					$notice_subject,
 					wc_price( $balance ),
 					$notice_query,
-					add_query_arg( 'affwp_wc_apply_credit', 'true', WC()->cart->get_checkout_url() ),
+					add_query_arg( 'affwp_wc_apply_credit', 'true', esc_url( wc_get_checkout_url() ) ),
 					$notice_action
 				),
 			'notice' );
