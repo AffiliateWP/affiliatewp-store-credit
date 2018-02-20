@@ -73,7 +73,7 @@ A: Not at this time.
 
 * Fix [WooCommerce integration]: Store credit can now only be used by the affiliate for whom it was created. Credit where credit is due, and only where credit is due!
 
-* Added AffiliateWP activiation script. Having AffiliateWP installed and activated is probably a good idea if you'd like to use this add-on!
+* Added AffiliateWP activation script. Having AffiliateWP installed and activated is probably a good idea if you'd like to use this add-on!
 
 * Fix [languages]: Adds translatable strings for the action_add_checkout_notice method. Bueno!
 
