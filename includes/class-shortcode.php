@@ -10,7 +10,7 @@ class AffiliateWP_Store_Credit_Shortcode {
 	}
 
 	/**
-	 * [affiliate_store_credit] shortcode
+	 * [affiliate_store_credit] shortcode.
 	 *
 	 * @since 2.2
 	 */
