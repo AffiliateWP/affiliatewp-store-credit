@@ -53,6 +53,10 @@ A: Not at this time.
 
 == Changelog ==
 
+= 2.2 =
+
+* Fix: PHP Notice: WC_Cart::get_checkout_url is deprecated.
+
 = 2.1.3 =
 
 * Fix: Store credits sometimes fail to apply to WooCommerce carts at checkout.
