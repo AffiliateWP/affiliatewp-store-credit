@@ -26,7 +26,7 @@ function affwp_store_credit_balance() {
 		return;
 	}
 
-	$current_balance = affwp_currency_filter( $current_balance );
+	$current_balance = affwp_currency_filter( affwp_format_amount( $current_balance ) );
 
 	return $current_balance;
 
