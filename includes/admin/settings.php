@@ -68,13 +68,13 @@ class AffiliateWP_Store_Credit_Admin {
 	?>
 
 		<tr class="form-row">
-			<th scope="row" id="direct-link-tracking">
+			<th scope="row">
 				<?php _e( 'Store Credit', 'affiliate-wp-store-credit' ); ?>
 			</th>
 			<td><hr /></td>
 		</tr>
 
-		<tr class="form-row direct-link-row">
+		<tr class="form-row">
 			<th scope="row">
 				<?php _e( 'Store Credit Balance', 'affiliate-wp-store-credit' ); ?>
 			</th>
