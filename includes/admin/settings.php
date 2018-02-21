@@ -39,6 +39,7 @@ class AffiliateWP_Store_Credit_Admin {
 			</th>
 			<td>
 				<input class="medium-text" type="text" name="store_credit" id="store-credit" value="<?php echo affwp_store_credit_balance( array( 'affiliate_id' => $affiliate->affiliate_id ) ); ?>" disabled="disabled" />
+				<p class="description"><?php _e( 'The affiliate\'s store credit balance.', 'affiliate-wp-store-credit' ); ?></p>
 			</td>
 		</tr>
 
