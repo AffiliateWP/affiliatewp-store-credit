@@ -56,6 +56,8 @@ A: Not at this time.
 = 2.2 =
 
 * Fix: PHP Notice: WC_Cart::get_checkout_url is deprecated.
+* Fix: Retrieve the coupon amount via the proper getter method in WooCommerce
+* Fix: The WooCommerce store balance could be incorrect if the affiliate's ID did not match their user ID 
 
 = 2.1.3 =
 
