@@ -12,9 +12,10 @@ class AffiliateWP_Store_Credit_Admin {
 	public function __construct() {
 		add_filter( 'affwp_settings_tabs', array( $this, 'register_settings_tab' ) );
 		add_filter( 'affwp_settings', array( $this, 'register_settings' ) );
-		add_action( 'affwp_edit_affiliate_end', array( $this, 'store_credit_balance' ), 10, 1 );
 		add_filter( 'affwp_affiliate_table_columns', array( $this, 'column_store_credit' ), 10, 3 );
 		add_filter( 'affwp_affiliate_table_store_credit', array( $this, 'column_store_credit_value' ), 10, 2 );
+
+		add_action( 'affwp_edit_affiliate_end', array( $this, 'store_credit_balance' ), 10, 1 );
 	}
 
 	public function column_store_credit( $prepared_columns, $columns, $instance ) {
