@@ -11,10 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * 
  * @return string $current_balance The affiliate's current store credit balance.
  */
-function affwp_store_credit_balance() {
+function affwp_store_credit_balance( $args = array() ) {
+
+	// Get the affiliate ID.
+	$affiliate_id = ! empty( $args['affiliate_id'] ) ? $args['affiliate_id'] : affwp_get_affiliate_id();
 
 	// Get the affiliate's user ID.
-	$user_id = affwp_get_affiliate_user_id( affwp_get_affiliate_id() );
+	$user_id = affwp_get_affiliate_user_id( $affiliate_id );
 
 	// Get the current store credit balance.
 	$current_balance = get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
