@@ -12,24 +12,41 @@ class AffiliateWP_Store_Credit_Admin {
 	public function __construct() {
 		add_filter( 'affwp_settings_tabs', array( $this, 'register_settings_tab' ) );
 		add_filter( 'affwp_settings', array( $this, 'register_settings' ) );
+
+		// Add a "Store Credit" column to the affiliates admin screen.
 		add_filter( 'affwp_affiliate_table_columns', array( $this, 'column_store_credit' ), 10, 3 );
 		add_filter( 'affwp_affiliate_table_store_credit', array( $this, 'column_store_credit_value' ), 10, 2 );
 
-		add_action( 'affwp_edit_affiliate_end', array( $this, 'store_credit_balance' ), 10, 1 );
+		// Add the Store Credit Balance to the edit affiliate screen.
+		add_action( 'affwp_edit_affiliate_end', array( $this, 'edit_affiliate_store_credit_balance' ), 10, 1 );
 	}
 
+	/**
+	 * Add a "Store Credit" column to the affiliates screen.
+	 *
+	 * @param array  $prepared_columns Prepared columns.
+	 * @param array  $columns  The columns for this list table.
+	 * @param object $instance List table instance.
+	 * 
+	 * @return array $prepared_columns Prepared columns.
+	 */
 	public function column_store_credit( $prepared_columns, $columns, $instance ) {
+
 		$prepared_columns['store_credit'] = 'Store Credit';
+		
 		return $prepared_columns;
 	}
 
 	/**
-	 * Filters the default value for each affiliates list table column.
+	 * Show the store credit balance for each affiliate.
 	 *
-	 * @param string           $value     The column data.
-	 * @param \AffWP\Affiliate $affiliate The current affiliate object
+	 * @param string $value    The column data.
+	 * @param object $affiliate The current affiliate object.
+	 * 
+	 * @return string $value   The affiliate's store credit balance.
 	 */
 	public function column_store_credit_value( $value, $affiliate ) {
+
 		$value = affwp_store_credit_balance( array( 'affiliate_id' => $affiliate->affiliate_id ) );
 
 		return $value;
@@ -43,7 +60,7 @@ class AffiliateWP_Store_Credit_Admin {
 	 * 
 	 * @since 2.2
 	 */
-	public function store_credit_balance( $affiliate ) {
+	public function edit_affiliate_store_credit_balance( $affiliate ) {
 	?>
 
 		<tr class="form-row">
@@ -90,7 +107,7 @@ class AffiliateWP_Store_Credit_Admin {
 	 */
 	public function register_settings( $settings = array() ) {
 
-		$settings[ 'store-credit' ] = array(
+		$settings['store-credit'] = array(
 			'store-credit' => array(
 				'name' => __( 'Enable Store Credit', 'affiliate-wp-recurrring' ),
 				'desc' => __( 'Check this box to enable store credit for referrals', 'affiliate-wp-store-credit' ),
