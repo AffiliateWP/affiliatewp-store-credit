@@ -13,6 +13,25 @@ class AffiliateWP_Store_Credit_Admin {
 		add_filter( 'affwp_settings_tabs', array( $this, 'register_settings_tab' ) );
 		add_filter( 'affwp_settings', array( $this, 'register_settings' ) );
 		add_action( 'affwp_edit_affiliate_end', array( $this, 'store_credit_balance' ), 10, 1 );
+		add_filter( 'affwp_affiliate_table_columns', array( $this, 'column_store_credit' ), 10, 3 );
+		add_filter( 'affwp_affiliate_table_store_credit', array( $this, 'column_store_credit_value' ), 10, 2 );
+	}
+
+	public function column_store_credit( $prepared_columns, $columns, $instance ) {
+		$prepared_columns['store_credit'] = 'Store Credit';
+		return $prepared_columns;
+	}
+
+	/**
+	 * Filters the default value for each affiliates list table column.
+	 *
+	 * @param string           $value     The column data.
+	 * @param \AffWP\Affiliate $affiliate The current affiliate object
+	 */
+	public function column_store_credit_value( $value, $affiliate ) {
+		$value = affwp_store_credit_balance( array( 'affiliate_id' => $affiliate->affiliate_id ) );
+
+		return $value;
 	}
 
 	/**
