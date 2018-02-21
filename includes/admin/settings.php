@@ -34,7 +34,11 @@ class AffiliateWP_Store_Credit_Admin {
 	 */
 	public function column_store_credit( $prepared_columns, $columns, $instance ) {
 
-		$prepared_columns['store_credit'] = 'Store Credit';
+		$offset = 6;
+
+		$prepared_columns = array_slice( $prepared_columns, 0, $offset, true ) +
+			array( 'store_credit' => __( 'Store Credit', 'affiliate-wp-store-credit' ) ) +
+			array_slice( $prepared_columns, $offset, NULL, true);
 
 		return $prepared_columns;
 	}
