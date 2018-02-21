@@ -12,6 +12,37 @@ class AffiliateWP_Store_Credit_Admin {
 	public function __construct() {
 		add_filter( 'affwp_settings_tabs', array( $this, 'register_settings_tab' ) );
 		add_filter( 'affwp_settings', array( $this, 'register_settings' ) );
+		add_action( 'affwp_edit_affiliate_end', array( $this, 'store_credit_balance' ), 10, 1 );
+	}
+
+	/**
+	 * Display the store credit balance.
+	 *
+	 * @access public
+	 * @param \AffWP\Affiliate $affiliate The affiliate object being edited.
+	 * 
+	 * @since 2.2
+	 */
+	public function store_credit_balance( $affiliate ) {
+	?>
+
+		<tr class="form-row">
+			<th scope="row" id="direct-link-tracking">
+				<?php _e( 'Store Credit', 'affiliate-wp-store-credit' ); ?>
+			</th>
+			<td><hr /></td>
+		</tr>
+
+		<tr class="form-row direct-link-row">
+			<th scope="row">
+				<?php _e( 'Store Credit Balance', 'affiliate-wp-store-credit' ); ?>
+			</th>
+			<td>
+				<input class="medium-text" type="text" name="store_credit" id="store-credit" value="<?php echo affwp_store_credit_balance( $affiliate->affiliate_id ); ?>" disabled="disabled" />
+			</td>
+		</tr>
+
+		<?php
 	}
 
 	/**
