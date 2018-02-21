@@ -23,6 +23,8 @@ class AffiliateWP_Store_Credit_Admin {
 
 	/**
 	 * Add a "Store Credit" column to the affiliates screen.
+	 * 
+	 * @since 2.2
 	 *
 	 * @param array  $prepared_columns Prepared columns.
 	 * @param array  $columns  The columns for this list table.
@@ -33,12 +35,14 @@ class AffiliateWP_Store_Credit_Admin {
 	public function column_store_credit( $prepared_columns, $columns, $instance ) {
 
 		$prepared_columns['store_credit'] = 'Store Credit';
-		
+
 		return $prepared_columns;
 	}
 
 	/**
 	 * Show the store credit balance for each affiliate.
+	 * 
+	 * @since 2.2
 	 *
 	 * @param string $value    The column data.
 	 * @param object $affiliate The current affiliate object.
