@@ -12,12 +12,10 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$this->context = 'woocommerce';
 
 		add_action( 'woocommerce_before_checkout_form',     array( $this, 'action_add_checkout_notice' ) );
-
 		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'checkout_actions' ) );
-
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'validate_coupon_usage' ), 10, 2 );
+		
 	}
-
 
 	/**
 	 * Add a payment to a referrer

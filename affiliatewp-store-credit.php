@@ -58,7 +58,6 @@ final class AffiliateWP_Store_Credit {
 	 */
 	public $logs;
 
-
 	/**
 	 * Main AffiliateWP_Store_Credit instance
 	 *
