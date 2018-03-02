@@ -6,8 +6,8 @@ Author: ramiabraham
 Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, drewapicture
 Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital downloads, edd
 License: GPLv2 or later
-Tested up to: 4.8
-Stable tag: 2.1.3
+Tested up to: 4.9.4
+Stable tag: 2.2
 Requires at least: 3.5
 
 == Description ==
@@ -53,6 +53,12 @@ A: Not at this time.
 
 == Changelog ==
 
+= 2.2 =
+
+* Fix: PHP Notice: WC_Cart::get_checkout_url is deprecated.
+* Fix: Retrieve the coupon amount via the proper getter method in WooCommerce
+* Fix: The WooCommerce store balance could be incorrect if the affiliate's ID did not match their user ID 
+
 = 2.1.3 =
 
 * Fix: Store credits sometimes fail to apply to WooCommerce carts at checkout.
@@ -67,19 +73,16 @@ A: Not at this time.
 
 = 2.1 =
 
-* Store Credit add-on options have moved to their own AffiliateWP tab. It's part of the family now!
-
+* New: Store Credit add-on options have moved to their own AffiliateWP tab. It's part of the family now!
+* New: An "Available Store Credit" section has been added to the "Statistics" tab of the Affiliate Area 
 * Fix [WooCommerce integration]: Store credit can now be used more than once per day by an affiliate when applying it toward the balances of purchases made in WooCommerce. Shop til you drop!
-
 * Fix [WooCommerce integration]: Store credit can now only be used by the affiliate for whom it was created. Credit where credit is due, and only where credit is due!
-
-* Added AffiliateWP activation script. Having AffiliateWP installed and activated is probably a good idea if you'd like to use this add-on!
-
+* New: Added AffiliateWP activation script. Having AffiliateWP installed and activated is probably a good idea if you'd like to use this add-on!
 * Fix [languages]: Adds translatable strings for the action_add_checkout_notice method. Bueno!
 
 = 2.0 =
 
-* Added support for Easy Digital Downloads
+* New: Added support for Easy Digital Downloads
 
 = 1.1 =
 * Fix for WooCommerce 2.3.3+: Run checkout actions after cart is loaded from session.

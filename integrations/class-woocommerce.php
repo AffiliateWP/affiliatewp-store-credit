@@ -126,7 +126,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$coupon_applied = $this->check_for_coupon( $cart_coupons );
 
 		$notice_subject = __( 'You have an account balance of', 'affiliatewp-store-credit' );
-		$notice_query   = __( 'Would you like to use it now', 'affiliatewp-store-credit' );
+		$notice_query   = __( 'Would you like to use it now?', 'affiliatewp-store-credit' );
 		$notice_action  = __( 'Apply', 'affiliatewp-store-credit' );
 
 		// If the user has a credit balance,
@@ -137,7 +137,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 					$notice_subject,
 					wc_price( $balance ),
 					$notice_query,
-					add_query_arg( 'affwp_wc_apply_credit', 'true', WC()->cart->get_checkout_url() ),
+					add_query_arg( 'affwp_wc_apply_credit', 'true', esc_url( wc_get_checkout_url() ) ),
 					$notice_action
 				),
 			'notice' );
@@ -365,7 +365,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		}
 
 		$coupon        = new WC_Coupon( $coupon_code );
-		$coupon_amount = $coupon->amount;
+		$coupon_amount = $coupon->get_amount();
 
 		if( ! $coupon_amount ) {
 			return;
