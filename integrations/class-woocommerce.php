@@ -367,7 +367,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		}
 
 		$coupon        = new WC_Coupon( $coupon_code );
-		$coupon_amount = $coupon->amount;
+		$coupon_amount = $coupon->get_amount();
 
 		if( ! $coupon_amount ) {
 			return;
