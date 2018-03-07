@@ -30,7 +30,7 @@ To use this plugin with Easy Digital Downloads, you need AffiliateWP, Easy Digit
 
 * When marking an AffiliateWP referral paid, it adds the total to the user's credit balance. If for some reason you go back and mark it unpaid, this plugin will also remove the referral amount from the balance.
 
-* On the checkout page, if the user has credit available, it will show a notice and ask them if they want to use it. Based on the credit available and order total, it will create a 1 time use coupon code for the lower amount and automatically apply it to the order. i.e. for a $100 order and $50 credit, it would generate a $50 coupon since the order is more. If the order is $25 and they have $50 in credit, it will generate a coupon for the $25 order total, and leave them with a $25 credit balance after checkout.
+* On the WooCommerce checkout page, if the user has credit available, it will show a notice and ask them if they want to use it. Based on the credit available and order total, it will create a 1 time use coupon code for the lower amount and automatically apply it to the order. i.e. for a $100 order and $50 credit, it would generate a $50 coupon since the order is more. If the order is $25 and they have $50 in credit, it will generate a coupon for the $25 order total, and leave them with a $25 credit balance after checkout.
 
 * Upon successful checkout, the one time use coupon code is grabbed and the coupon total is deducted from their available balance.
 
@@ -55,6 +55,10 @@ A: Not at this time.
 
 = 2.2 =
 
+* New: A shortcode has been added: [affiliate_store_credit]
+* New: The edit affiliate admin screen now shows an affiliate's store credit balance
+* New: A "Store Credit" column has been added to the "Affiliates" admin screen
+* New: A filter has been added for the WooCommerce integration: affwp_store_credit_woocommerce_coupon_data
 * Fix: PHP Notice: WC_Cart::get_checkout_url is deprecated.
 * Fix: Retrieve the coupon amount via the proper getter method in WooCommerce
 * Fix: The WooCommerce store balance could be incorrect if the affiliate's ID did not match their user ID 
