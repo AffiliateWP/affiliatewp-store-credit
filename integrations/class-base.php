@@ -10,13 +10,14 @@ abstract class AffiliateWP_Store_Credit_Base {
 	 */
 	public $context;
 
-
 	public function __construct() {
+
 		$this->init();
 
 		add_action( 'affwp_set_referral_status', array( $this, 'process_payout' ), 10, 3 );
 		add_action( 'affwp_process_update_referral', array( $this, 'process_payout' ), 0 );
 		add_action( 'affwp_add_referral', array( $this, 'process_payout' ) );
+
 	}
 
 	/**
