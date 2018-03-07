@@ -261,26 +261,29 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 			affwp_get_affiliate_payment_email( $affiliate_id )
 		);
 
+		$coupon_data = apply_filters( 'affwp_store_credit_woocommerce_coupon_data', array(
+			'discount_type'    => 'fixed_cart',
+			'coupon_amount'    => $amount,
+			'individual_use'   => 'yes',
+			'usage_limit'      => '1',
+			'expiry_date'      => $expires,
+			'apply_before_tax' => 'yes',
+			'free_shipping'    => 'no',
+			'customer_email'   => $user_emails,
+		) );
+
 		$coupon = array(
 			'post_title'   => $coupon_code,
 			'post_content' => '',
 			'post_status'  => 'publish',
 			'post_author'  => 1,
-			'post_type'    => 'shop_coupon'
+			'post_type'    => 'shop_coupon',
+			'meta_input'   => $coupon_data
 		);
 
 		$new_coupon_id = wp_insert_post( $coupon );
 
-		if( $new_coupon_id ) {
-			update_post_meta( $new_coupon_id, 'discount_type', 'fixed_cart' );
-			update_post_meta( $new_coupon_id, 'coupon_amount', $amount );
-			update_post_meta( $new_coupon_id, 'individual_use', 'yes' );
-			update_post_meta( $new_coupon_id, 'usage_limit', '1' );
-			update_post_meta( $new_coupon_id, 'expiry_date', $expires );
-			update_post_meta( $new_coupon_id, 'apply_before_tax', 'yes' );
-			update_post_meta( $new_coupon_id, 'free_shipping', 'no' );
-			update_post_meta( $new_coupon_id, 'customer_email', $user_emails );
-
+		if ( $new_coupon_id ) {
 			return $coupon_code;
 		}
 
