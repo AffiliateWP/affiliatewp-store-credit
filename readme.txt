@@ -6,8 +6,8 @@ Author: ramiabraham
 Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, drewapicture
 Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital downloads, edd
 License: GPLv2 or later
-Tested up to: 4.9.4
-Stable tag: 2.2
+Tested up to: 4.9.5
+Stable tag: 2.2.1
 Requires at least: 3.5
 
 == Description ==
@@ -52,6 +52,9 @@ A: Not at this time.
 
 
 == Changelog ==
+
+= 2.2.1 =
+* Fix: Fatal error that could occur when store credit is not enabled from the Store Credit settings tab
 
 = 2.2 =
 
