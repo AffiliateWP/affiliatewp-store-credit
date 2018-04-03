@@ -54,7 +54,6 @@ class AffiliateWP_Store_Credit_Admin {
 	 * @return string $value   The affiliate's store credit balance.
 	 */
 	public function column_store_credit_value( $value, $affiliate ) {
-
 		$value = affwp_store_credit_balance( array( 'affiliate_id' => $affiliate->affiliate_id ) );
 
 		return $value;

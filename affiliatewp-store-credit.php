@@ -149,13 +149,14 @@ final class AffiliateWP_Store_Credit {
 	 * @return void
 	 */
 	private function includes() {
-		if( is_admin() ) {
-			require_once self::$plugin_dir . 'includes/admin/settings.php';
-		}
 
 		// Check that store credit is enabled
 		if( ! affiliate_wp()->settings->get( 'store-credit' ) ) {
 			return;
+		}
+
+		if ( is_admin() ) {
+			require_once self::$plugin_dir . 'includes/admin/settings.php';
 		}
 
 		require_once self::$plugin_dir . 'integrations/class-base.php';
@@ -176,7 +177,6 @@ final class AffiliateWP_Store_Credit {
 		// Functions.
 		require_once self::$plugin_dir . 'includes/functions.php';
 	}
-
 
 	/**
 	 * Defines init processes for this instance.
