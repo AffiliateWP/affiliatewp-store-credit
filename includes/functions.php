@@ -23,7 +23,7 @@ function affwp_store_credit_balance( $args = array() ) {
 
 	if ( class_exists( 'AffiliateWP_Store_Credit_WooCommerce' ) ) {
 		$integration = 'woocommerce';
-	} elseif ( class_exists( 'AffiliateWP_Store_Credit_EDD' ) ) {
+	} elseif ( class_exists( 'AffiliateWP_Store_Credit_EDD' ) && class_exists( 'EDD_Wallet' ) ) {
 		$integration = 'edd';
 	}
 
