@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AffiliateWP - Store Credit\n"
+"POT-Creation-Date: 2018-04-17 11:43-0700\n"
+"PO-Revision-Date: 2018-04-17 11:44-0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: affiliatewp-store-credit.php\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: affiliatewp-store-credit.php:94 affiliatewp-store-credit.php:107
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: includes/admin/settings.php:43 includes/admin/settings.php:78
+#: includes/admin/settings.php:105
+msgid "Store Credit"
+msgstr ""
+
+#: includes/admin/settings.php:85
+msgid "Store Credit Balance"
+msgstr ""
+
+#: includes/admin/settings.php:89
+msgid "The affiliate's store credit balance."
+msgstr ""
+
+#: includes/admin/settings.php:122
+msgid "Enable Store Credit"
+msgstr ""
+
+#: includes/admin/settings.php:123
+msgid "Check this box to enable store credit for referrals"
+msgstr ""
+
+#: includes/class-activation.php:47
+msgid "This plugin"
+msgstr ""
+
+#: includes/class-activation.php:82
+#, php-format
+msgid " requires %sAffiliateWP%s. Please activate it to continue."
+msgstr ""
+
+#: includes/class-activation.php:85
+#, php-format
+msgid " requires %sAffiliateWP%s. Please install it to continue."
+msgstr ""
+
+#: includes/dashboard.php:32
+msgid "You have a store credit balance of"
+msgstr ""
+
+#: includes/dashboard.php:47
+msgid "Available Store Credit"
+msgstr ""
+
+#: integrations/class-edd.php:35
+msgid ""
+"AffiliateWP - Store Credit EDD integration requires the EDD Wallet extension!"
+msgstr ""
+
+#: integrations/class-edd.php:111
+msgid "Referral Payout"
+msgstr ""
+
+#: integrations/class-edd.php:114
+msgid "Referral Cancelled"
+msgstr ""
+
+#: integrations/class-edd.php:136
+msgid "View Details for Referral"
+msgstr ""
+
+#: integrations/class-edd.php:136
+msgid "View Details"
+msgstr ""
+
+#: integrations/class-woocommerce.php:128
+msgid "You have an account balance of"
+msgstr ""
+
+#: integrations/class-woocommerce.php:129
+msgid "Would you like to use it now?"
+msgstr ""
+
+#: integrations/class-woocommerce.php:130
+msgid "Apply"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "AffiliateWP - Store Credit"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://affiliatewp.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Pay AffiliateWP referrals as store credit"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "AffiliateWP, LLC"
+msgstr ""
