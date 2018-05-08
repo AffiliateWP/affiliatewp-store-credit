@@ -150,6 +150,9 @@ final class AffiliateWP_Store_Credit {
 	 */
 	private function includes() {
 
+		// Functions.
+		require_once self::$plugin_dir . 'includes/functions.php';
+
 		if ( is_admin() ) {
 			require_once self::$plugin_dir . 'includes/admin/settings.php';
 		}
@@ -174,8 +177,6 @@ final class AffiliateWP_Store_Credit {
 		// Shortcode.
 		require_once self::$plugin_dir . 'includes/class-shortcode.php';
 
-		// Functions.
-		require_once self::$plugin_dir . 'includes/functions.php';
 	}
 
 	/**
