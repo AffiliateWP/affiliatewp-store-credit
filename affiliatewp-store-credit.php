@@ -3,9 +3,9 @@
  * Plugin Name:     AffiliateWP - Store Credit
  * Plugin URI:      https://affiliatewp.com
  * Description:     Pay AffiliateWP referrals as store credit
- * Author:          AffiliateWP Team
+ * Author:          AffiliateWP, LLC
  * Contributors:    ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214
- * Version:         2.1.3
+ * Version:         2.2.2
  * Author URI:      https://affiliatewp.com
  * Text Domain:     affiliatewp-store-credit
  */
@@ -58,7 +58,6 @@ final class AffiliateWP_Store_Credit {
 	 */
 	public $logs;
 
-
 	/**
 	 * Main AffiliateWP_Store_Credit instance
 	 *
@@ -72,7 +71,7 @@ final class AffiliateWP_Store_Credit {
 			self::$instance = new AffiliateWP_Store_Credit;
 
 			self::$plugin_dir = plugin_dir_path( __FILE__ );
-			self::$version = '2.1.3';
+			self::$version = '2.2.2';
 
 			self::$instance->load_textdomain();
 			self::$instance->includes();
@@ -150,7 +149,8 @@ final class AffiliateWP_Store_Credit {
 	 * @return void
 	 */
 	private function includes() {
-		if( is_admin() ) {
+
+		if ( is_admin() ) {
 			require_once self::$plugin_dir . 'includes/admin/settings.php';
 		}
 
@@ -170,8 +170,13 @@ final class AffiliateWP_Store_Credit {
 
 		// Front-end; renders in affiliate dashboard statistics area
 		require_once self::$plugin_dir . 'includes/dashboard.php';
-	}
 
+		// Shortcode.
+		require_once self::$plugin_dir . 'includes/class-shortcode.php';
+
+		// Functions.
+		require_once self::$plugin_dir . 'includes/functions.php';
+	}
 
 	/**
 	 * Defines init processes for this instance.

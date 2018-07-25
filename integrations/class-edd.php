@@ -2,7 +2,6 @@
 
 class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 
-
 	/**
 	 * Get things started
 	 *
@@ -11,6 +10,7 @@ class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 	 * @return void
 	 */
 	public function init() {
+
 		$this->context = 'edd';
 
 		// Make sure Wallet is installed
@@ -21,8 +21,8 @@ class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 
 		add_filter( 'edd_wallet_activity_type', array( $this, 'setup_wallet_type' ), 10, 2 );
 		add_filter( 'edd_wallet_activity_actions', array( $this, 'setup_wallet_actions' ), 10, 2 );
-	}
 
+	}
 
 	/**
 	 * Display a notice if EDD Wallet is missing
@@ -34,7 +34,6 @@ class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 	public function missing_edd_wallet() {
 		echo '<div class="error"><p>' . __( 'AffiliateWP - Store Credit EDD integration requires the EDD Wallet extension!', 'affiliatewp-store-credit' ) . '</p></div>';
 	}
-
 
 	/**
 	 * Add a payment to a referrer
