@@ -91,7 +91,7 @@ abstract class AffiliateWP_Store_Credit_Base {
 		$referral = affwp_get_referral( $referral_id );
 
 		// Bail if the affiliate is not enabled to receive store credit.
-		if ( ! $this->can_receive_store_credit( $referral->affiliate_id ) ) {
+		if ( ! $this->can_receive_store_credit( $referral->affiliate_id, $referral ) ) {
 			$affwp_store_credit->log( 'AffiliateWP Store Credit: This affiliate is not enabled to receive store credit.' );
 			return;
 		}
@@ -120,20 +120,40 @@ abstract class AffiliateWP_Store_Credit_Base {
 	 *
 	 * @since  2.3
 	 *
-	 * @param  int $affiliate_id The affiliate ID.
+	 * @param int            $affiliate_id Affiliate ID.
+	 * @param AffWP\Referral $referral     Referral object.
+	 *
 	 * @return bool
 	 */
-	public function can_receive_store_credit( $affiliate_id = 0 ) {
+	public function can_receive_store_credit( $affiliate_id = 0, $referral ) {
 
-		// get global setting
+		$ret = false;
+
+		// Get global setting.
 		$global_store_credit_enabled = affiliate_wp()->settings->get( 'store-credit-all-affiliates' );
 
-		// all affiliates can receive store credit
+		// All affiliates can receive store credit.
 		if ( $global_store_credit_enabled ) {
-			return true;
+
+			$ret = true;
+
+		} else {
+
+			$ret = affwp_get_affiliate_meta( $affiliate_id, 'store_credit_enabled', true );
+
 		}
 
-		return (bool) affwp_get_affiliate_meta( $affiliate_id, 'store_credit_enabled', true );
+		/**
+		 * Filters whether the affiliate can receive store credit.
+		 *
+		 * @since 2.3
+		 *
+		 * @param bool           True if the affiliate can receive store credit, otherwise false.
+		 *                       Defaults to false.
+		 * @param int            $affiliate Affiliate ID.
+		 * @param AffWP\Referral $referral  Referral object.
+		 */
+		return apply_filters( 'affwp_store_credit_can_receive_store_credit', $ret, $affiliate_id, $referral );
 
 	}
 
