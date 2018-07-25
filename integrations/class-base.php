@@ -88,6 +88,14 @@ abstract class AffiliateWP_Store_Credit_Base {
 			return;
 		}
 
+		$referral = affwp_get_referral( $referral_id );
+
+		// Bail if the affiliate is not enabled to receive store credit.
+		if ( ! $this->can_receive_store_credit( $referral->affiliate_id ) ) {
+			$affwp_store_credit->log( 'AffiliateWP Store Credit: This affiliate is not enabled to receive store credit.' );
+			return;
+		}
+
 		// Bail if the new referral status for this referral is unset or an empty string.
 		if ( ! isset( $new_status ) || '' === $new_status ) {
 			$affwp_store_credit->log( 'AffiliateWP Store Credit: The new referral status could not be determined.' );
@@ -106,4 +114,27 @@ abstract class AffiliateWP_Store_Credit_Base {
 			$this->remove_payment( $referral_id );
 		}
 	}
+
+	/**
+	 * Can the affiliate receive store credit?
+	 *
+	 * @since  2.3
+	 *
+	 * @param  int $affiliate_id The affiliate ID.
+	 * @return bool
+	 */
+	public function can_receive_store_credit( $affiliate_id = 0 ) {
+
+		// get global setting
+		$global_store_credit_enabled = affiliate_wp()->settings->get( 'store-credit-all-affiliates' );
+
+		// all affiliates can receive store credit
+		if ( $global_store_credit_enabled ) {
+			return true;
+		}
+
+		return (bool) affwp_get_affiliate_meta( $affiliate_id, 'store_credit_enabled', true );
+
+	}
+
 }
