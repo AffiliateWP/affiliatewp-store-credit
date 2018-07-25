@@ -98,7 +98,7 @@ class AffiliateWP_Store_Credit_Admin {
 
 				<td>
 					<input type="checkbox" name="enable_store_credit" id="enable_store_credit" value="1" <?php checked( 1, $checked, true ); ?> />
-					<p class="description"><?php _e( 'Enables payouts via store credit for this affiliate.', 'affiliatewp-store-credit' ); ?></p>
+					<p class="description"><?php _e( 'Enable payouts via store credit for this affiliate.', 'affiliatewp-store-credit' ); ?></p>
 				</td>
 
 			</tr>
