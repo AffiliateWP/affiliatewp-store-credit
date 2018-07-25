@@ -16,9 +16,10 @@ class AffiliateWP_Store_Credit_Admin {
 
 		if ( affiliate_wp()->settings->get( 'store-credit' ) ) {
 
-			// Add a "Store Credit" column to the affiliates admin screen.
+			// Add a "Store Credit & Payout Method" columns to the affiliates admin screen.
 			add_filter( 'affwp_affiliate_table_columns', array( $this, 'column_store_credit' ), 10, 3 );
 			add_filter( 'affwp_affiliate_table_store_credit', array( $this, 'column_store_credit_value' ), 10, 2 );
+			add_filter( 'affwp_affiliate_table_payout_method', array( $this, 'column_payment_method_value' ), 10, 2 );
 
 			// Add the Store Credit Balance to the edit affiliate screen.
 			add_action( 'affwp_edit_affiliate_end', array( $this, 'edit_affiliate_store_credit_settings' ), 10, 1 );
@@ -31,7 +32,7 @@ class AffiliateWP_Store_Credit_Admin {
 	}
 
 	/**
-	 * Add a "Store Credit" column to the affiliates screen.
+	 * Add a "Store Credit & Payment Method" columns to the affiliates screen.
 	 * 
 	 * @since 2.2
 	 *
@@ -46,8 +47,9 @@ class AffiliateWP_Store_Credit_Admin {
 		$offset = 6;
 
 		$prepared_columns = array_slice( $prepared_columns, 0, $offset, true ) +
-			array( 'store_credit' => __( 'Store Credit', 'affiliate-wp-store-credit' ) ) +
-			array_slice( $prepared_columns, $offset, NULL, true);
+		                    array( 'store_credit' => __( 'Store Credit', 'affiliate-wp-store-credit' ) ) +
+		                    array( 'payout_method' => __( 'Payout Method', 'affiliate-wp-store-credit' ) ) +
+		                    array_slice( $prepared_columns, $offset, null, true );
 
 		return $prepared_columns;
 	}
@@ -64,6 +66,23 @@ class AffiliateWP_Store_Credit_Admin {
 	 */
 	public function column_store_credit_value( $value, $affiliate ) {
 		$value = affwp_store_credit_balance( array( 'affiliate_id' => $affiliate->affiliate_id ) );
+
+		return $value;
+	}
+
+	/**
+	 * Show the payment method for each affiliate.
+	 *
+	 * @since 2.3
+	 *
+	 * @param string $value     The column data.
+	 * @param object $affiliate The current affiliate object.
+	 *
+	 * @return string $value   The affiliate's payment method.
+	 */
+	public function column_payment_method_value( $value, $affiliate ) {
+
+		$value = $this->get_payout_method( $affiliate->affiliate_id );
 
 		return $value;
 	}
@@ -189,6 +208,41 @@ class AffiliateWP_Store_Credit_Admin {
 		} else {
 			affwp_delete_affiliate_meta( $data['affiliate_id'], 'store_credit_enabled' );
 		}
+
+	}
+
+	/**
+	 * Get the payment method set for the affiliate.
+	 *
+	 * @since  2.3
+	 *
+	 * @param int $affiliate_id The affiliate ID
+	 *
+	 * @return string $payment method The payment method set for the affiliate
+	 */
+	public function get_payout_method( $affiliate_id = 0 ) {
+
+		$payment_method = __( 'Cash', 'affiliate-wp-store-credit' );
+
+		$global_store_credit_enabled = affiliate_wp()->settings->get( 'store-credit-all-affiliates' );
+
+		if ( $global_store_credit_enabled ) {
+
+			$payment_method = __( 'Store Credit', 'affiliate-wp-store-credit' );
+
+		} else {
+
+			$affiliate_store_credit_enabled = affwp_get_affiliate_meta( $affiliate_id, 'store_credit_enabled', true );
+
+			if ( $affiliate_store_credit_enabled ) {
+
+				$payment_method = __( 'Store Credit', 'affiliate-wp-store-credit' );
+
+			}
+
+		}
+
+		return $payment_method;
 
 	}
 
