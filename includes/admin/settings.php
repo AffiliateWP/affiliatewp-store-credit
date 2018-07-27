@@ -180,7 +180,12 @@ class AffiliateWP_Store_Credit_Admin {
 				'name' => __( 'Enable For All Affiliates?', 'affiliatewp-store-credit' ),
 				'desc' => __( 'Check this box to allow all affiliates to receive store credit.', 'affiliatewp-store-credit' ),
 				'type' => 'checkbox'
-			)
+			),
+			'store-credit-change-payment-method' => array(
+				'name' => __( 'Affiliate Enable Store Credit', 'affiliatewp-store-credit' ),
+				'desc' => __( 'Check this box to allow affiliates enable payout via store credit from their affiliate dashboard.', 'affiliatewp-store-credit' ),
+				'type' => 'checkbox',
+			),
 		);
 
 		return $settings;
