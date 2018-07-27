@@ -73,6 +73,7 @@ final class AffiliateWP_Store_Credit {
 			self::$plugin_dir = plugin_dir_path( __FILE__ );
 			self::$version = '2.2.2';
 
+			self::$instance->setup_constants();
 			self::$instance->load_textdomain();
 			self::$instance->includes();
 			self::$instance->init();
@@ -105,6 +106,22 @@ final class AffiliateWP_Store_Credit {
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'affiliatewp-store-credit' ), '2.1.1' );
+	}
+
+
+	/**
+	 * Setup plugin constants.
+	 *
+	 * @access private
+	 * @since 2.3
+	 * @return void
+	 */
+	private function setup_constants() {
+		// Plugin version
+		if ( ! defined( 'AFFWP_SC_VERSION' ) ) {
+			define( 'AFFWP_SC_VERSION', self::$version );
+		}
+
 	}
 
 
@@ -152,6 +169,9 @@ final class AffiliateWP_Store_Credit {
 
 		if ( is_admin() ) {
 			require_once self::$plugin_dir . 'includes/admin/settings.php';
+
+			// Upgrade class.
+			require_once self::$plugin_dir . 'includes/admin/class-upgrades.php';
 		}
 
 		// Check that store credit is enabled

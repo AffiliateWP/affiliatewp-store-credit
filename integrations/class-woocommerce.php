@@ -40,7 +40,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 
 		// Get the user's current woocommerce credit balance
 		$current_balance = get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
-		$new_balance     = floatval( $current_balance + $referral->amount );
+		$new_balance     = floatval( (float) $current_balance + (float) $referral->amount );
 
 		return update_user_meta( $user_id, 'affwp_wc_credit_balance', $new_balance );
 	}
