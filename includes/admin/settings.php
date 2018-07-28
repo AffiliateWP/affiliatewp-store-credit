@@ -182,8 +182,8 @@ class AffiliateWP_Store_Credit_Admin {
 				'type' => 'checkbox'
 			),
 			'store-credit-change-payment-method' => array(
-				'name' => __( 'Affiliate Enable Store Credit', 'affiliatewp-store-credit' ),
-				'desc' => __( 'Check this box to allow affiliates enable payout via store credit from their affiliate dashboard.', 'affiliatewp-store-credit' ),
+				'name' => __( 'Enable Store Credit per Affiliate', 'affiliatewp-store-credit' ),
+				'desc' => __( 'Check this box to allow affiliates to enable payout via store credit from their affiliate dashboard.', 'affiliatewp-store-credit' ),
 				'type' => 'checkbox',
 			),
 		);
