@@ -45,6 +45,11 @@ class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 	 */
 	protected function add_payment( $referral_id ) {
 
+		// Return if EDD Wallet is not active.
+		if ( ! class_exists( 'EDD_Wallet' ) ) {
+			return;
+		}
+
 		// Return if the referral ID isn't valid
 		if( ! is_numeric( $referral_id ) ) {
 			return;
@@ -72,6 +77,11 @@ class AffiliateWP_Store_Credit_EDD extends AffiliateWP_Store_Credit_Base {
 	 * @return
 	 */
 	protected function remove_payment( $referral_id ) {
+
+		// Return if EDD Wallet is not active.
+		if ( ! class_exists( 'EDD_Wallet' ) ) {
+			return;
+		}
 
 		// Return if the referral ID isn't valid
 		if( ! is_numeric( $referral_id ) ) {
