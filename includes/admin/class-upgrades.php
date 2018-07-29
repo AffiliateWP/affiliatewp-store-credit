@@ -65,7 +65,7 @@ class Affiliate_Store_Credit_Upgrades {
 
 		// Check that store credit is enabled.
 		if ( affiliate_wp()->settings->get( 'store-credit' ) ) {
-			affiliate_wp()->settings->set( array( 'store-credit-all-affiliates' => '1' ), true );
+			affiliate_wp()->settings->set( array( 'store-credit-all-affiliates' => 1 ), true );
 		}
 
 		// Upgraded!
