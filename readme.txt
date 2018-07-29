@@ -6,8 +6,8 @@ Author: ramiabraham
 Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, drewapicture
 Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital downloads, edd
 License: GPLv2 or later
-Tested up to: 4.9.5
-Stable tag: 2.2.2
+Tested up to: 4.5
+Stable tag: 2.3
 Requires at least: 3.5
 
 == Description ==
@@ -52,6 +52,16 @@ A: Not at this time.
 
 
 == Changelog ==
+
+= 2.3 =
+* New: Added support for applying earned credit to renewal orders in WooCommerce Subscriptions
+* New: Added support for redeeming store credit and other coupons in WooCommerce
+* New: Added support for earning store credit through Recurring Referrals add-on
+* New: Added support for selecting which affiliates should receive store credit for referral payouts
+* Fix: Updated incorrect text domain
+* Fix: Coupon applied multiple times on subsequent "Apply" button clicks
+* Fix: Fatal error in EDD integration when marking referral as paid if EDD Wallet is not active
+* Fix: Store credit amounts do not update when editing referral amounts
 
 = 2.2.2 =
 * Fix: Fatal error that could occur when store credit is enabled, EDD integration is enabled, but EDD Wallet is not installed and active
