@@ -40,13 +40,29 @@ To use this plugin with Easy Digital Downloads, you need AffiliateWP, Easy Digit
 
 A: Yes it does!
 
+* Does this support EDD Recurring Payments?
+
+A: Yes it does! Affiliates that refer subscription purchases by customers can receive store credit each time a renewal order is processed if [Recurring Referrals](https://affiliatewp.com/add-ons/pro/recurring-referrals/) is installed on the site.
+
 * Does this support WooCommerce?
 
 A: Yes it does!
 
+* Does this support WooCommerce Subscriptions?
+
+A: Yes it does! Affiliates that have earned store credit and have active subscriptions can have their credit applied to their renewals. Affiliates that refer subscription purchases by customers can receive store credit each time a renewal order is processed if [Recurring Referrals](https://affiliatewp.com/add-ons/pro/recurring-referrals/) is installed on the site.
+
 * Does this support any other e-Commerce plugins?
 
 A: Not at this time.
+
+* Can it be set so only certain affiliates are paid in store credit?
+
+A: Yes!
+
+* Can affiliates select if they wish to be paid in store credit?
+
+A: Yes! There is an option that lets site admins enable that profile setting for affiliates.
 
 == Screenshots ==
 
