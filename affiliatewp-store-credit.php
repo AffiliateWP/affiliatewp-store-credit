@@ -4,7 +4,7 @@
  * Plugin URI:      https://affiliatewp.com
  * Description:     Pay AffiliateWP referrals as store credit
  * Author:          AffiliateWP, LLC
- * Contributors:    ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214
+ * Contributors:    ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, tubiz
  * Version:         2.3
  * Author URI:      https://affiliatewp.com
  * Text Domain:     affiliatewp-store-credit
