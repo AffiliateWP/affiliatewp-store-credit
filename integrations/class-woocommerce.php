@@ -250,7 +250,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$user_id      = ( $user_id ) ? $user_id : get_current_user_id();
 		$user_info    = get_userdata( $user_id );
 		$affiliate_id = is_int( $affiliate_id ) ? $affiliate_id : affwp_get_affiliate_id( $user_id );
-		$date         = current_time( 'Ymds' );
+		$date         = current_time( 'YmdHi' );
 		$coupon_code  = 'AFFILIATE-CREDIT-' . $date . '_' . $user_id;
 		$expires      = $this->coupon_expires();
 
@@ -264,7 +264,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$coupon_data = apply_filters( 'affwp_store_credit_woocommerce_coupon_data', array(
 			'discount_type'    => 'fixed_cart',
 			'coupon_amount'    => $amount,
-			'individual_use'   => 'yes',
+			'individual_use'   => 'no',
 			'usage_limit'      => '1',
 			'expiry_date'      => $expires,
 			'apply_before_tax' => 'yes',
