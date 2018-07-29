@@ -47,8 +47,8 @@ class AffiliateWP_Store_Credit_Admin {
 		$offset = 6;
 
 		$prepared_columns = array_slice( $prepared_columns, 0, $offset, true ) +
-		                    array( 'store_credit' => __( 'Store Credit', 'affiliate-wp-store-credit' ) ) +
-		                    array( 'payout_method' => __( 'Payout Method', 'affiliate-wp-store-credit' ) ) +
+		                    array( 'store_credit' => __( 'Store Credit', 'affiliatewp-store-credit' ) ) +
+		                    array( 'payout_method' => __( 'Payout Method', 'affiliatewp-store-credit' ) ) +
 		                    array_slice( $prepared_columns, $offset, null, true );
 
 		return $prepared_columns;
@@ -227,13 +227,13 @@ class AffiliateWP_Store_Credit_Admin {
 	 */
 	public function get_payout_method( $affiliate_id = 0 ) {
 
-		$payment_method = __( 'Cash', 'affiliate-wp-store-credit' );
+		$payment_method = __( 'Cash', 'affiliatewp-store-credit' );
 
 		$global_store_credit_enabled = affiliate_wp()->settings->get( 'store-credit-all-affiliates' );
 
 		if ( $global_store_credit_enabled ) {
 
-			$payment_method = __( 'Store Credit', 'affiliate-wp-store-credit' );
+			$payment_method = __( 'Store Credit', 'affiliatewp-store-credit' );
 
 		} else {
 
@@ -241,7 +241,7 @@ class AffiliateWP_Store_Credit_Admin {
 
 			if ( $affiliate_store_credit_enabled ) {
 
-				$payment_method = __( 'Store Credit', 'affiliate-wp-store-credit' );
+				$payment_method = __( 'Store Credit', 'affiliatewp-store-credit' );
 
 			}
 
