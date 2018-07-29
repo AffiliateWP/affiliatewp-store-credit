@@ -3,11 +3,11 @@ Plugin Name: AffiliateWP - Store Credit
 Plugin URI: https://affiliatewp.com
 Description: Pay AffiliateWP referrals as store credit. Currently supports WooCommerce and Easy Digital Downloads.
 Author: ramiabraham
-Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, drewapicture
+Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, drewapicture, tubiz
 Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital downloads, edd
 License: GPLv2 or later
-Tested up to: 4.9.5
-Stable tag: 2.2.2
+Tested up to: 4.5
+Stable tag: 2.3
 Requires at least: 3.5
 
 == Description ==
@@ -40,18 +40,44 @@ To use this plugin with Easy Digital Downloads, you need AffiliateWP, Easy Digit
 
 A: Yes it does!
 
+* Does this support EDD Recurring Payments?
+
+A: Yes it does! Affiliates that refer subscription purchases by customers can receive store credit each time a renewal order is processed if [Recurring Referrals](https://affiliatewp.com/add-ons/pro/recurring-referrals/) is installed on the site.
+
 * Does this support WooCommerce?
 
 A: Yes it does!
+
+* Does this support WooCommerce Subscriptions?
+
+A: Yes it does! Affiliates that have earned store credit and have active subscriptions can have their credit applied to their renewals. Affiliates that refer subscription purchases by customers can receive store credit each time a renewal order is processed if [Recurring Referrals](https://affiliatewp.com/add-ons/pro/recurring-referrals/) is installed on the site.
 
 * Does this support any other e-Commerce plugins?
 
 A: Not at this time.
 
+* Can it be set so only certain affiliates are paid in store credit?
+
+A: Yes!
+
+* Can affiliates select if they wish to be paid in store credit?
+
+A: Yes! There is an option that lets site admins enable that profile setting for affiliates.
+
 == Screenshots ==
 
 
 == Changelog ==
+
+= Version 2.3, July 29, 2018 =
+* New: Added support for applying earned credit to renewal orders in WooCommerce Subscriptions
+* New: Added support for redeeming store credit and other coupons in WooCommerce
+* New: Added support for earning store credit through Recurring Referrals add-on
+* New: Added support for selecting which affiliates should receive store credit for referral payouts
+* Fix: Updated incorrect text domain
+* Fix: Coupon applied multiple times on subsequent "Apply" button clicks
+* Fix: Fatal error in EDD integration when marking referral as paid if EDD Wallet is not active
+* Fix: Store credit amounts do not update when editing referral amounts
 
 = 2.2.2 =
 * Fix: Fatal error that could occur when store credit is enabled, EDD integration is enabled, but EDD Wallet is not installed and active
