@@ -188,6 +188,16 @@ class AffiliateWP_Store_Credit_Admin {
 			),
 		);
 
+		if ( class_exists( 'WC_Subscriptions' ) ) {
+
+			$settings['store-credit']['store-credit-woocommerce-subscriptions'] = array(
+				'name' => __( 'Apply Store Credit To WooCommerce Subscriptions Renewal Orders', 'affiliatewp-store-credit' ),
+				'desc' => __( 'Check this box to automatically apply the affiliate store credit to WooCommerce Subscriptions renewal orders.', 'affiliatewp-store-credit' ),
+				'type' => 'checkbox',
+			);
+
+		}
+
 		return $settings;
 	}
 

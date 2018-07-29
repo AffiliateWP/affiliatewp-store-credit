@@ -11,10 +11,11 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 	public function init() {
 		$this->context = 'woocommerce';
 
-		add_action( 'woocommerce_before_checkout_form',     array( $this, 'action_add_checkout_notice' ) );
-		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'checkout_actions' ) );
-		add_action( 'woocommerce_checkout_order_processed', array( $this, 'validate_coupon_usage' ), 10, 2 );
-		
+		add_action( 'woocommerce_before_checkout_form',                  array( $this, 'action_add_checkout_notice' ) );
+		add_action( 'woocommerce_cart_loaded_from_session',              array( $this, 'checkout_actions' ) );
+		add_action( 'woocommerce_checkout_order_processed',              array( $this, 'validate_coupon_usage' ), 10, 2 );
+		add_filter( 'wcs_renewal_order_created',                         array( $this, 'subscription_actions' ), 10, 2 );
+		add_action( 'woocommerce_subscription_renewal_payment_complete', array( $this, 'subscription_validate_coupon_usage' ) );
 	}
 
 	/**
@@ -380,5 +381,99 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 
 		return update_user_meta( $user_id, 'affwp_wc_credit_balance', $new_balance );
 	}
+
+
+	/**
+	 * Process subscription renewal actions
+	 *
+	 * @access public
+	 * @since  2.3
+	 *
+	 * @param object $renewal_order The renewal order object
+	 * @param object $subscription  The subscription object
+	 *
+	 * @return object $renewal_order Renewal order object
+	 */
+	public function subscription_actions( $renewal_order, $subscription ) {
+
+		$store_credit_woocommerce_subscriptions_enabled = affiliate_wp()->settings->get( 'store-credit-woocommerce-subscriptions' );
+
+		if ( ! $store_credit_woocommerce_subscriptions_enabled ) {
+			return $renewal_order;
+		}
+
+		if ( ! $renewal_order instanceof WC_Order ) {
+			return $renewal_order;
+		}
+
+		$user_id = $subscription->get_user_id();
+
+		// Get the credit balance and cart total.
+		$credit_balance = (float) get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
+		$order_total    = (float) $renewal_order->get_total();
+
+		// Determine the max possible coupon value.
+		$coupon_total = $this->calculate_coupon_amount( $credit_balance, $order_total );
+
+		// Bail if the coupon value was 0.
+		if ( $coupon_total <= 0 ) {
+			return $renewal_order;
+		}
+
+		// Attempt to generate a coupon code.
+		$coupon_code = $this->generate_coupon( $user_id, $coupon_total );
+
+		if ( $coupon_code ) {
+			$renewal_order->apply_coupon( $coupon_code );
+		}
+
+		return $renewal_order;
+	}
+
+
+	/**
+	 * Validate a coupon for a subscription order
+	 *
+	 * @access public
+	 * @since  2.3
+	 *
+	 * @param  object $subscription The subscription object
+	 *
+	 * @return void|false
+	 *
+	 */
+	public function subscription_validate_coupon_usage( $subscription ) {
+
+		$store_credit_woocommerce_subscriptions_enabled = affiliate_wp()->settings->get( 'store-credit-woocommerce-subscriptions' );
+
+		if ( ! $store_credit_woocommerce_subscriptions_enabled ) {
+			return;
+		}
+
+		$last_order = $subscription->get_last_order( 'all' );
+
+		// Get the user ID associated with the order.
+		$user_id = $last_order->get_user_id();
+
+		// Grab an array of coupons used.
+		$coupons = $last_order->get_used_coupons();
+
+		// If the order has coupons.
+		if ( $coupon_code = $this->check_for_coupon( $coupons ) ) {
+
+			// Bail if the user ID in the coupon does not match the current user.
+			$user_id_from_coupon = intval( substr( $coupon_code, stripos( $coupon_code, '_' ) + 1 ) );
+
+			if ( intval( $user_id ) === $user_id_from_coupon ) {
+				// Process the coupon usage and remove the amount from the user's credit balance
+				$this->process_used_coupon( $user_id, $coupon_code );
+			} else {
+				return false;
+			}
+
+		}
+
+	}
+
 }
 new AffiliateWP_Store_Credit_WooCommerce;
