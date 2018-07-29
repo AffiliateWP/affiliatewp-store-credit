@@ -69,7 +69,7 @@ A: Yes! There is an option that lets site admins enable that profile setting for
 
 == Changelog ==
 
-= 2.3 =
+= Version 2.3, July 29, 2018 =
 * New: Added support for applying earned credit to renewal orders in WooCommerce Subscriptions
 * New: Added support for redeeming store credit and other coupons in WooCommerce
 * New: Added support for earning store credit through Recurring Referrals add-on
