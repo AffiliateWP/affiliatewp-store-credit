@@ -17,6 +17,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		add_action( 'woocommerce_checkout_order_processed',              array( $this, 'validate_coupon_usage' ), 10, 2 );
 		add_filter( 'wcs_renewal_order_created',                         array( $this, 'subscription_actions' ), 10, 2 );
 		add_action( 'woocommerce_subscription_renewal_payment_complete', array( $this, 'subscription_validate_coupon_usage' ) );
+		add_action( 'woocommerce_removed_coupon',                        array( $this, 'delete_coupon_on_removal' ) );
 	}
 
 	/**
@@ -526,6 +527,31 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 			if ( ! empty( $coupon_id ) ) {
 				// Update coupon amount with the new max possible coupon value
 				update_post_meta( $coupon_id, 'coupon_amount', $coupon_total );
+			}
+
+		}
+
+	}
+
+	/**
+	 * Delete a coupon when it is removed
+	 *
+	 * @access public
+	 * @since  2.3.1
+	 *
+	 * @param string $coupon_code The coupon code
+	 *
+	 * @return void
+	 */
+	public function delete_coupon_on_removal( $coupon_code ) {
+
+		if ( false !== stripos( $coupon_code, 'AFFILIATE-CREDIT-' ) ) {
+
+			$coupon    = new WC_Coupon( $coupon_code );
+			$coupon_id = $coupon->get_id();
+
+			if ( ! empty( $coupon_id ) ) {
+				wp_delete_post( $coupon_id );
 			}
 
 		}
