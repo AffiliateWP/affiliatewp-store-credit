@@ -13,6 +13,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 
 		add_action( 'woocommerce_before_checkout_form',                  array( $this, 'action_add_checkout_notice' ) );
 		add_action( 'woocommerce_cart_loaded_from_session',              array( $this, 'checkout_actions' ) );
+		add_action( 'woocommerce_cart_loaded_from_session',              array( $this, 'cart_updated_actions' ) );
 		add_action( 'woocommerce_checkout_order_processed',              array( $this, 'validate_coupon_usage' ), 10, 2 );
 		add_filter( 'wcs_renewal_order_created',                         array( $this, 'subscription_actions' ), 10, 2 );
 		add_action( 'woocommerce_subscription_renewal_payment_complete', array( $this, 'subscription_validate_coupon_usage' ) );
@@ -470,6 +471,62 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 				$this->process_used_coupon( $user_id, $coupon_code );
 			} else {
 				return false;
+			}
+
+		}
+
+	}
+
+	/**
+	 * Update the coupon when a cart action occurs
+	 *
+	 * @access public
+	 * @since  2.3.1
+	 *
+	 * @return void
+	 */
+	public function cart_updated_actions() {
+
+		$coupons = WC()->cart->get_applied_coupons();
+
+		if ( $coupon_code = $this->check_for_coupon( $coupons ) ) {
+
+			$cart_total = (float) $this->calculate_cart_subtotal();
+
+			$coupon        = new WC_Coupon( $coupon_code );
+			$coupon_amount = (float) $coupon->get_amount();
+
+			// Delete and remove coupon when the cart is emptied
+			if ( 0 == $cart_total ) {
+
+				$coupon_id = $coupon->get_id();
+
+				if ( ! empty( $coupon_id ) ) {
+					WC()->cart->remove_coupon( $coupon_code );
+					wp_delete_post( $coupon_id );
+				}
+
+				return;
+			}
+
+			// Update coupon amount when the cart is updated
+			if ( $cart_total == $coupon_amount ) {
+				return;
+			}
+
+			$user_id = get_current_user_id();
+
+			// Get the credit balance and cart total
+			$credit_balance = (float) get_user_meta( $user_id, 'affwp_wc_credit_balance', true );
+
+			// Determine the max possible coupon value
+			$coupon_total = $this->calculate_coupon_amount( $credit_balance, $cart_total );
+
+			$coupon_id = $coupon->get_id();
+
+			if ( ! empty( $coupon_id ) ) {
+				// Update coupon amount with the new max possible coupon value
+				update_post_meta( $coupon_id, 'coupon_amount', $coupon_total );
 			}
 
 		}
