@@ -7,7 +7,7 @@ Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214,
 Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital downloads, edd
 License: GPLv2 or later
 Tested up to: 5.0
-Stable tag: 2.3
+Stable tag: 2.3.1
 Requires at least: 3.5
 
 == Description ==
@@ -68,6 +68,10 @@ A: Yes! There is an option that lets site admins enable that profile setting for
 
 
 == Changelog ==
+
+= Version 2.3.1, February 15, 2019 =
+* Fix [WooCommerce integration]: Delete coupon when it is removed from the cart
+* Fix [WooCommerce integration]: Invalid coupon amount and store credit deduction when cart is updated after coupon is applied
 
 = Version 2.3, July 29, 2018 =
 * New: Added support for applying earned credit to renewal orders in WooCommerce Subscriptions
