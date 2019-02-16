@@ -69,7 +69,7 @@ A: Yes! There is an option that lets site admins enable that profile setting for
 
 == Changelog ==
 
-= Version 2.3.1, February 15, 2019 =
+= Version 2.3.1, February 16, 2019 =
 * Fix [WooCommerce integration]: Delete coupon when it is removed from the cart
 * Fix [WooCommerce integration]: Invalid coupon amount and store credit deduction when cart is updated after coupon is applied
 
