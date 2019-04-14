@@ -547,11 +547,17 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 
 		if ( false !== stripos( $coupon_code, 'AFFILIATE-CREDIT-' ) ) {
 
-			$coupon    = new WC_Coupon( $coupon_code );
-			$coupon_id = $coupon->get_id();
+			$applied_coupons = isset( WC()->cart->applied_coupons ) ? WC()->cart->applied_coupons : array();
 
-			if ( ! empty( $coupon_id ) ) {
-				wp_delete_post( $coupon_id );
+			if ( ! in_array( $coupon_code, $applied_coupons ) ) {
+
+				$coupon    = new WC_Coupon( $coupon_code );
+				$coupon_id = $coupon->get_id();
+
+				if ( ! empty( $coupon_id ) ) {
+					wp_delete_post( $coupon_id );
+				}
+
 			}
 
 		}
