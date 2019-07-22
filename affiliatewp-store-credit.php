@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name:     AffiliateWP - Store Credit
- * Plugin URI:      https://affiliatewp.com
- * Description:     Pay AffiliateWP referrals as store credit
- * Author:          AffiliateWP, LLC
- * Contributors:    ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, tubiz
- * Version:         2.3.2
- * Author URI:      https://affiliatewp.com
- * Text Domain:     affiliatewp-store-credit
+ * Plugin Name: AffiliateWP - Store Credit
+ * Plugin URI: https://affiliatewp.com
+ * Description: Pay AffiliateWP referrals as store credit
+ * Author: Sandhills Development, LLC
+ * Author URI: https://sandhillsdev.com
+ * Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, tubiz
+ * Version: 2.3.2
+ * Text Domain: affiliatewp-store-credit
  */
 
 // Exit if accessed directly
