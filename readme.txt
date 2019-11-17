@@ -6,7 +6,8 @@ Author: ramiabraham
 Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, drewapicture, tubiz
 Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital downloads, edd
 License: GPLv2 or later
-Tested up to: 5.2
+Tested up to: 5.3
+Requires PHP: 5.3
 Stable tag: 2.3.2
 Requires at least: 3.5
 
