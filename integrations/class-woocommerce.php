@@ -264,11 +264,20 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 			affwp_get_affiliate_payment_email( $affiliate_id )
 		);
 
+		/**
+		 * Filters store credit data for coupons.
+		 *
+		 * @since 2.0
+		 * @since 2.3.3 Adds usage count to coupon data.
+		 *
+		 * @param array $coupon_data The coupon metadata.
+		 */
 		$coupon_data = apply_filters( 'affwp_store_credit_woocommerce_coupon_data', array(
 			'discount_type'    => 'fixed_cart',
 			'coupon_amount'    => $amount,
 			'individual_use'   => 'no',
 			'usage_limit'      => '1',
+			'usage_count'      => '0',
 			'expiry_date'      => $expires,
 			'apply_before_tax' => 'yes',
 			'free_shipping'    => 'no',

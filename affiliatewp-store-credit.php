@@ -6,7 +6,7 @@
  * Author: Sandhills Development, LLC
  * Author URI: https://sandhillsdev.com
  * Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, tubiz
- * Version: 2.3.2
+ * Version: 2.3.3
  * Text Domain: affiliatewp-store-credit
  */
 
@@ -71,7 +71,7 @@ final class AffiliateWP_Store_Credit {
 			self::$instance = new AffiliateWP_Store_Credit;
 
 			self::$plugin_dir = plugin_dir_path( __FILE__ );
-			self::$version = '2.3.2';
+			self::$version = '2.3.3';
 
 			self::$instance->setup_constants();
 			self::$instance->load_textdomain();
