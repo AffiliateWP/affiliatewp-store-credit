@@ -268,7 +268,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		 * Filters store credit data for coupons.
 		 *
 		 * @since 2.0
-		 * @since 2.5 Adds usage count to coupon data.
+		 * @since 2.3.3 Adds usage count to coupon data.
 		 *
 		 * @param array $coupon_data The coupon metadata.
 		 */
