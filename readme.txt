@@ -70,7 +70,7 @@ A: Yes! There is an option that lets site admins enable that profile setting for
 
 == Changelog ==
 
-= Version 2.3.3, April 14, 2019 =
+= Version 2.3.3, February 24, 2020 =
 * Fix [WooCommerce integration]: Store credit cannot be used
 
 = Version 2.3.2, April 14, 2019 =
