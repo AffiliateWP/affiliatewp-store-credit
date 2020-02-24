@@ -269,6 +269,7 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 			'coupon_amount'    => $amount,
 			'individual_use'   => 'no',
 			'usage_limit'      => '1',
+//			'usage_count'      => '0',
 			'expiry_date'      => $expires,
 			'apply_before_tax' => 'yes',
 			'free_shipping'    => 'no',
