@@ -21,6 +21,10 @@ class AffiliateWP_Store_Credit_Admin {
 			add_filter( 'affwp_affiliate_table_store_credit', array( $this, 'column_store_credit_value' ), 10, 2 );
 			add_filter( 'affwp_affiliate_table_payout_method', array( $this, 'column_payment_method_value' ), 10, 2 );
 
+			// Add a "Payout Method" column to the referrals admin screen.
+			add_filter( 'affwp_referral_table_columns', array( $this, 'referrals_column_store_credit' ), 10, 3 );
+			add_filter( 'affwp_referral_table_payout_method', array( $this, 'referrals_column_payment_method_value' ), 10, 2 );
+
 			// Add the Store Credit Balance to the edit affiliate screen.
 			add_action( 'affwp_edit_affiliate_end', array( $this, 'edit_affiliate_store_credit_settings' ), 10, 1 );
 
@@ -83,6 +87,45 @@ class AffiliateWP_Store_Credit_Admin {
 	public function column_payment_method_value( $value, $affiliate ) {
 
 		$value = $this->get_payout_method( $affiliate->affiliate_id );
+
+		return $value;
+	}
+
+	/**
+	 * Add a "Payment Method" column to the referrals screen.
+	 * 
+	 * @since 2.3.3
+	 *
+	 * @param array  $prepared_columns Prepared columns.
+	 * @param array  $columns  The columns for this list table.
+	 * @param object $instance List table instance.
+	 * 
+	 * @return array $prepared_columns Prepared columns.
+	 */
+	public function referrals_column_store_credit( $prepared_columns, $columns, $instance ) {
+
+		$offset = 8;
+
+		$prepared_columns = array_slice( $prepared_columns, 0, $offset, true ) +
+		                    array( 'payout_method' => __( 'Payout Method', 'affiliatewp-store-credit' ) ) +
+		                    array_slice( $prepared_columns, $offset, null, true );
+
+		return $prepared_columns;
+	}
+
+	/**
+	 * Show the payment method for each referral.
+	 *
+	 * @since 2.3.3
+	 *
+	 * @param string $value     The column data.
+	 * @param object $affiliate The current affiliate object.
+	 *
+	 * @return string $value   The affiliate's payment method.
+	 */
+	public function referrals_column_payment_method_value( $value, $referral ) {
+
+		$value = $this->get_payout_method( $referral->affiliate_id );
 
 		return $value;
 	}
