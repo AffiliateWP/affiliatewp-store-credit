@@ -92,15 +92,14 @@ class AffiliateWP_Store_Credit_Admin {
 	}
 
 	/**
-	 * Add a "Payment Method" column to the referrals screen.
+	 * Adds a "Payment Method" column to the referrals screen.
 	 * 
 	 * @since 2.3.3
 	 *
 	 * @param array  $prepared_columns Prepared columns.
 	 * @param array  $columns  The columns for this list table.
 	 * @param object $instance List table instance.
-	 * 
-	 * @return array $prepared_columns Prepared columns.
+	 * @return array Prepared columns.
 	 */
 	public function referrals_column_store_credit( $prepared_columns, $columns, $instance ) {
 
@@ -114,14 +113,13 @@ class AffiliateWP_Store_Credit_Admin {
 	}
 
 	/**
-	 * Show the payment method for each referral.
+	 * Shows the payment method for each referral.
 	 *
 	 * @since 2.3.3
 	 *
 	 * @param string $value     The column data.
 	 * @param object $affiliate The current affiliate object.
-	 *
-	 * @return string $value   The affiliate's payment method.
+	 * @return string The affiliate's payment method.
 	 */
 	public function referrals_column_payment_method_value( $value, $referral ) {
 
