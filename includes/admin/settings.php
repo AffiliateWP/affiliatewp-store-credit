@@ -94,7 +94,7 @@ class AffiliateWP_Store_Credit_Admin {
 	/**
 	 * Adds a "Payment Method" column to the referrals screen.
 	 * 
-	 * @since 2.3.3
+	 * @since 2.3.4
 	 *
 	 * @param array  $prepared_columns Prepared columns.
 	 * @param array  $columns  The columns for this list table.
@@ -115,7 +115,7 @@ class AffiliateWP_Store_Credit_Admin {
 	/**
 	 * Shows the payment method for each referral.
 	 *
-	 * @since 2.3.3
+	 * @since 2.3.4
 	 *
 	 * @param string $value     The column data.
 	 * @param object $affiliate The current affiliate object.
