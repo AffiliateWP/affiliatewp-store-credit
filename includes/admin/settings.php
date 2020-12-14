@@ -259,7 +259,7 @@ class AffiliateWP_Store_Credit_Admin {
 		$referral_rate_store_credit_settings = array(
 			'referral_rate_store_credit' => array(
 				'name' => __( 'Referral Rate: Store Credit', 'affiliatewp-store-credit' ),
-				'desc' => __( 'The default referral rate for store credit. Empty for same as the referral rate. A percentage if the Referral Rate Type is set to Percentage, a flat amount otherwise. Referral rates for store credit can also be set for each individual affiliate.', 'affiliate-wp' ),
+				'desc' => __( 'The default referral rate for store credit. Empty for same as the referral rate. A percentage if the Referral Rate Type is set to Percentage, a flat amount otherwise.', 'affiliate-wp' ),
 				'type' => 'number',
 				'size' => 'small',
 				'step' => '0.01',
