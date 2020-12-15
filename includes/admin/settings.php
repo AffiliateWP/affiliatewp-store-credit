@@ -11,6 +11,7 @@ class AffiliateWP_Store_Credit_Admin {
 	 */
 	public function __construct() {
 
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 100 );
 		add_filter( 'affwp_settings_tabs', array( $this, 'register_settings_tab' ) );
 		add_filter( 'affwp_settings', array( $this, 'register_settings' ) );
 
@@ -31,6 +32,30 @@ class AffiliateWP_Store_Credit_Admin {
 			// Save affiliate Store Credit option in the affiliate meta table.
 			add_action( 'affwp_update_affiliate', array( $this, 'update_affiliate' ), 0 );
 
+		}
+
+	}
+
+	/**
+	 * Admin scripts.
+	 *
+	 * @access public
+	 * @since 2.3.4
+	 */
+	public function admin_scripts() {
+
+		// Admin CSS file.
+		$screen = affwp_get_current_screen();
+
+		// Use minified libraries if SCRIPT_DEBUG is set to false.
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		// Register scripts.
+		wp_register_script( 'asc-admin-scripts', AFFWP_SC_PLUGIN_URL . 'assets/js/admin-scripts' . $suffix . '.js',  array(), AFFWP_SC_VERSION, false );
+
+		// Enqueue scripts.
+		if ( $screen === 'affiliate-wp-settings' && isset( $_GET['tab'] ) && $_GET['tab'] === 'store-credit' ) {
+			wp_enqueue_script( 'asc-admin-scripts' );
 		}
 
 	}
@@ -211,6 +236,8 @@ class AffiliateWP_Store_Credit_Admin {
 	 */
 	public function register_settings( $settings = array() ) {
 
+		$referral_rate_type = affiliate_wp()->settings->get( 'store-credit-referral-rate-type', '' );
+
 		$settings[ 'store-credit' ] = array(
 			'store-credit' => array(
 				'name' => __( 'Enable Store Credit', 'affiliatewp-store-credit' ),
@@ -226,6 +253,21 @@ class AffiliateWP_Store_Credit_Admin {
 				'name' => __( 'Enable Store Credit Opt-In', 'affiliatewp-store-credit' ),
 				'desc' => __( 'Check this box to allow affiliates to enable payout via store credit from their affiliate dashboard.', 'affiliatewp-store-credit' ),
 				'type' => 'checkbox',
+			),
+			'store-credit-referral-rate-type' => array(
+				'name'    => __( 'Referral Rate Type', 'affiliatewp-store-credit' ),
+				'desc'    => __( 'Choose a referral rate type. Referrals can be based on either a percentage or a flat rate amount.', 'affiliatewp-store-credit' ),
+				'type'    => 'radio',
+				'options' => affwp_get_affiliate_rate_types(),
+				'std'     => 'percentage'
+			),
+			'store-credit-flat-rate-basis' => array(
+				'name'    => __( 'Flat Rate Referral Basis', 'affiliatewp-store-credit' ),
+				'desc'    => __( 'Flat rate referrals can be calculated on either a per product or per order basis.', 'affiliatewp-store-credit' ),
+				'type'    => 'radio',
+				'options' => affwp_get_affiliate_flat_rate_basis_types(),
+				'class'   => $referral_rate_type !== 'flat' ? 'affwp-store-credit-referral-rate-type-field affwp-hidden' : 'affwp-store-credit-referral-rate-type-field',
+				'std'     => 'per_product'
 			),
 			'store-credit-referral-rate' => array(
 				'name' => __( 'Referral Rate', 'affiliatewp-store-credit' ),

@@ -122,6 +122,20 @@ final class AffiliateWP_Store_Credit {
 			define( 'AFFWP_SC_VERSION', self::$version );
 		}
 
+		// Plugin Folder Path
+		if ( ! defined( 'AFFWP_SC_PLUGIN_DIR' ) ) {
+			define( 'AFFWP_SC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+		}
+
+		// Plugin Folder URL
+		if ( ! defined( 'AFFWP_SC_PLUGIN_URL' ) ) {
+			define( 'AFFWP_SC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+		}
+
+		// Plugin Root File
+		if ( ! defined( 'AFFWP_SC_PLUGIN_FILE' ) ) {
+			define( 'AFFWP_SC_PLUGIN_FILE', __FILE__ );
+		}
 	}
 
 
