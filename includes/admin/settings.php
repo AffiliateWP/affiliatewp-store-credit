@@ -227,7 +227,7 @@ class AffiliateWP_Store_Credit_Admin {
 				'desc' => __( 'Check this box to allow affiliates to enable payout via store credit from their affiliate dashboard.', 'affiliatewp-store-credit' ),
 				'type' => 'checkbox',
 			),
-			'referral_rate_store_credit' => array(
+			'store-credit-referral-rate' => array(
 				'name' => __( 'Referral Rate', 'affiliatewp-store-credit' ),
 				'desc' => __( 'The default referral rate for store credit. Empty for same as the referral rate. A percentage if the Referral Rate Type is set to Percentage, a flat amount otherwise.', 'affiliatewp-store-credit' ),
 				'type' => 'number',

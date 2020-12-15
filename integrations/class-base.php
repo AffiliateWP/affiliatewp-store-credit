@@ -182,7 +182,7 @@ abstract class AffiliateWP_Store_Credit_Base {
 		}
 
 		// Check if referral rate set for store credit.
-		$referral_rate_store_credit = affiliate_wp()->settings->get( 'referral_rate_store_credit', '' );
+		$referral_rate_store_credit = affiliate_wp()->settings->get( 'store-credit-referral-rate', '' );
 		if( empty( $referral_rate_store_credit ) ) {
 			return $rate;
 		}
