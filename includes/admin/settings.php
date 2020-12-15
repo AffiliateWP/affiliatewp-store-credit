@@ -16,9 +16,6 @@ class AffiliateWP_Store_Credit_Admin {
 
 		if ( affiliate_wp()->settings->get( 'store-credit' ) ) {
 
-			// Add a "Referral Rate: Store Credit" setting on General Settings.
-			add_filter( 'affwp_settings_general', array( $this, 'register_general_settings' ) );
-
 			// Add a "Store Credit & Payout Method" columns to the affiliates admin screen.
 			add_filter( 'affwp_affiliate_table_columns', array( $this, 'column_store_credit' ), 10, 3 );
 			add_filter( 'affwp_affiliate_table_store_credit', array( $this, 'column_store_credit_value' ), 10, 2 );
@@ -230,6 +227,14 @@ class AffiliateWP_Store_Credit_Admin {
 				'desc' => __( 'Check this box to allow affiliates to enable payout via store credit from their affiliate dashboard.', 'affiliatewp-store-credit' ),
 				'type' => 'checkbox',
 			),
+			'referral_rate_store_credit' => array(
+				'name' => __( 'Referral Rate', 'affiliatewp-store-credit' ),
+				'desc' => __( 'The default referral rate for store credit. Empty for same as the referral rate. A percentage if the Referral Rate Type is set to Percentage, a flat amount otherwise.', 'affiliatewp-store-credit' ),
+				'type' => 'number',
+				'size' => 'small',
+				'step' => '0.01',
+				'std'  => ''
+			)
 		);
 
 		if ( class_exists( 'WC_Subscriptions' ) ) {
@@ -243,39 +248,6 @@ class AffiliateWP_Store_Credit_Admin {
 		}
 
 		return $settings;
-	}
-
-	/**
-	 * Add our general settings
-	 *
-	 * @access public
-	 * @since 2.3.4
-	 * @param array $settings The existing settings
-	 * @return array $settings The updated settings
-	 */
-	public function register_general_settings( $general_settings ) {
-
-		// Referral rate for store credit.
-		$referral_rate_store_credit_settings = array(
-			'referral_rate_store_credit' => array(
-				'name' => __( 'Referral Rate: Store Credit', 'affiliatewp-store-credit' ),
-				'desc' => __( 'The default referral rate for store credit. Empty for same as the referral rate. A percentage if the Referral Rate Type is set to Percentage, a flat amount otherwise.', 'affiliate-wp' ),
-				'type' => 'number',
-				'size' => 'small',
-				'step' => '0.01',
-				'std'  => ''
-			)
-		);
-
-		// Find referral rate position on settings.
-		$general_settings_keys = array_keys( $general_settings );
-		$referral_key_index = array_search( 'referral_rate', $general_settings_keys, true );
-		$pos = false === $referral_key_index ? count( $general_settings ) : $referral_key_index + 1;
-
-		// Show referral rate for store credit after the default referral rate setting.
-		return array_slice( $general_settings, 0, $pos, true) + 
-			$referral_rate_store_credit_settings +
-			array_slice( $general_settings, $pos, count( $general_settings ) - 1, true);
 	}
 
 	/**
