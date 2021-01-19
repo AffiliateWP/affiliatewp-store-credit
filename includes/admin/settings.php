@@ -44,7 +44,7 @@ class AffiliateWP_Store_Credit_Admin {
 	 */
 	public function admin_scripts() {
 
-		if ( ! ( affwp_is_admin_page( 'affiliate-wp-settings' ) && isset( $_GET['tab'] ) && $_GET['tab'] === 'store-credit' ) ) {
+		if ( ! ( affwp_is_admin_page( 'affiliate-wp-settings' ) && isset( $_GET['tab'] ) && 'store-credit' === $_GET['tab'] ) ) {
 			return;
 		}
 
@@ -52,11 +52,13 @@ class AffiliateWP_Store_Credit_Admin {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// Register scripts.
-		wp_register_script( 'asc-admin-scripts', AFFWP_SC_PLUGIN_URL . 'assets/js/admin-scripts' . $suffix . '.js',  array(), AFFWP_SC_VERSION, false );
+		wp_register_script( 'asc-admin-scripts', AFFWP_SC_PLUGIN_URL . 'assets/js/admin-scripts' . $suffix . '.js',  array( 'jquery' ), AFFWP_SC_VERSION, false );
 
 		// Enqueue scripts.
 		if ( function_exists( 'affwp_enqueue_script' ) ) {
 			affwp_enqueue_script( 'asc-admin-scripts' );
+		} else {
+			wp_enqueue_script( 'asc-admin-scripts' );
 		}
 
 	}

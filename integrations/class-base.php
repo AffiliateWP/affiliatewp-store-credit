@@ -122,7 +122,7 @@ abstract class AffiliateWP_Store_Credit_Base {
 	/**
 	 * Can the affiliate receive store credit?
 	 *
-	 * @since  2.3
+	 * @since 2.3
 	 *
 	 * @param int            $affiliate_id Affiliate ID.
 	 * @param AffWP\Referral $referral     Referral object.
@@ -162,15 +162,15 @@ abstract class AffiliateWP_Store_Credit_Base {
 	}
 
 	/**
-	 * Get affiliate rate for store credit.
+	 * Gets affiliate rate for store credit.
 	 *
-	 * @since  2.3.4
-	 * @access public
-	 * @param  float  $rate  				The affiliate rate.
-	 * @param  int 		$affiliate_id	Affiliate ID.
-	 * @param  string $type   			Rate type, usually 'flat' or 'percentage'.
-	 * @param  string $reference 		$reference    Optional. Reference. Default empty.
-	 * @return float	Affiliate rate
+	 * @since 2.3.4
+	 * 
+	 * @param float  $rate         The affiliate rate.
+	 * @param int    $affiliate_id Affiliate ID.
+	 * @param string $type         Rate type, usually 'flat' or 'percentage'.
+	 * @param string $reference    Optional. Reference. Default empty.
+	 * @return float Affiliate rate
 	 */
 	public function get_affiliate_rate( $rate, $affiliate_id, $type, $reference ) {
 		// Check if store credit active.
@@ -198,13 +198,13 @@ abstract class AffiliateWP_Store_Credit_Base {
 	}
 
 	/**
-	 * Get affiliate flat rate basis for store credit.
+	 * Gets affiliate flat rate basis for store credit.
 	 *
-	 * @since  2.3.4
-	 * @access public
-	 * @param  string $type  				Affiliate flat rate basis. Default values will be 'per_product' or 'per_order'.
-	 * @param  int 		$affiliate_id	Affiliate ID.
-	 * @return string	Affiliate flat rate basis.
+	 * @since 2.3.4
+	 * 
+	 * @param string $type         Affiliate flat rate basis. Default values will be 'per_product' or 'per_order'.
+	 * @param int    $affiliate_id Affiliate ID.
+	 * @return string Affiliate flat rate basis.
 	 */
 	public function get_affiliate_flat_rate_basis( $type, $affiliate_id ) {
 		// Check if store credit active.
@@ -224,13 +224,13 @@ abstract class AffiliateWP_Store_Credit_Base {
 	}
 
 	/**
-	 * Get affiliate rate type for store credit.
+	 * Gets affiliate rate type for store credit.
 	 *
-	 * @since  2.3.4
-	 * @access public
-	 * @param  string $type  				Affiliate rate type. Default values will be 'percentage' or 'flat'.
-	 * @param  int 		$affiliate_id	Affiliate ID.
-	 * @return string	Affiliate rate type.
+	 * @since 2.3.4
+	 * 
+	 * @param string $type         Affiliate rate type. Default values will be 'percentage' or 'flat'.
+	 * @param int    $affiliate_id Affiliate ID.
+	 * @return string Affiliate rate type.
 	 */
 	public function get_affiliate_rate_type( $type, $affiliate_id ) {
 		// Check if store credit active.
