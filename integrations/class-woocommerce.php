@@ -323,7 +323,11 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$user_id = $order->get_user_id();
 
 		// Grab an array of coupons used
-		$coupons = $order->get_used_coupons();
+		if ( version_compare( WC()->version, '3.7.0', '>=' ) ) {
+			$coupons = $order->get_coupon_codes();
+		} else {
+			$coupons = $order->get_used_coupons();
+		}
 
 		// If the order has coupons
 		if( $coupon_code = $this->check_for_coupon( $coupons ) ) {
@@ -467,7 +471,11 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$user_id = $last_order->get_user_id();
 
 		// Grab an array of coupons used.
-		$coupons = $last_order->get_used_coupons();
+		if ( version_compare( WC()->version, '3.7.0', '>=' ) ) {
+			$coupons = $last_order->get_coupon_codes();
+		} else {
+			$coupons = $last_order->get_used_coupons();
+		}
 
 		// If the order has coupons.
 		if ( $coupon_code = $this->check_for_coupon( $coupons ) ) {
