@@ -8,7 +8,7 @@ Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital down
 License: GPLv2 or later
 Tested up to: 5.7
 Requires PHP: 5.3
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 Requires at least: 3.5
 
 == Description ==
