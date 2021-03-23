@@ -6,9 +6,9 @@ Author: ramiabraham
 Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, drewapicture, tubiz, alexstandiford
 Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital downloads, edd
 License: GPLv2 or later
-Tested up to: 5.5
+Tested up to: 5.7
 Requires PHP: 5.3
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 Requires at least: 3.5
 
 == Description ==
@@ -69,6 +69,11 @@ A: Yes! There is an option that lets site admins enable that profile setting for
 
 
 == Changelog ==
+
+= Version 2.3.4, March 22, 2021 =
+* Improved: Add indicator to see what referrals should be paid in Store Credit
+* Improved: Tested up to WordPress 5.7
+* Fixed: Adjust how used coupon codes are retrieved in WooCommerce 3.7+
 
 = Version 2.3.3, February 24, 2020 =
 * Fix [WooCommerce integration]: Store credit cannot be used
