@@ -131,10 +131,13 @@ class AffiliateWP_Store_Credit_WooCommerce extends AffiliateWP_Store_Credit_Base
 		$notice_subject = __( 'You have an account balance of', 'affiliatewp-store-credit' );
 		$notice_query   = __( 'Would you like to use it now?', 'affiliatewp-store-credit' );
 		$notice_action  = __( 'Apply', 'affiliatewp-store-credit' );
+		
+		// Control checkou notice display
+		$show_checkout_notice = apply_filters( 'show_store_credit_checkout_notice', true );
 
 		// If the user has a credit balance,
 		// and has not already generated and applied a coupon code
-		if( $balance && ! $coupon_applied ) {
+		if( $balance && ! $coupon_applied && $show_checkout_notice ) {
 			wc_print_notice(
 				sprintf( '%1$s <strong>%2$s</strong>. %3$s <a href="%4$s" class="button">%5$s</a>',
 					$notice_subject,
