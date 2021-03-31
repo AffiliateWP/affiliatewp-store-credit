@@ -18,6 +18,10 @@ abstract class AffiliateWP_Store_Credit_Base {
 		add_action( 'affwp_process_update_referral', array( $this, 'process_payout' ), 0 );
 		add_action( 'affwp_add_referral', array( $this, 'process_payout' ) );
 
+		add_filter( 'affwp_get_affiliate_rate', array( $this, 'get_affiliate_rate' ), 10, 4 );
+		add_filter( 'affwp_get_affiliate_flat_rate_basis', array( $this, 'get_affiliate_flat_rate_basis' ), 10, 2 );
+		add_filter( 'affwp_get_affiliate_rate_type', array( $this, 'get_affiliate_rate_type' ), 10, 2 );
+
 	}
 
 	/**
@@ -118,7 +122,7 @@ abstract class AffiliateWP_Store_Credit_Base {
 	/**
 	 * Can the affiliate receive store credit?
 	 *
-	 * @since  2.3
+	 * @since 2.3
 	 *
 	 * @param int            $affiliate_id Affiliate ID.
 	 * @param AffWP\Referral $referral     Referral object.
@@ -155,6 +159,94 @@ abstract class AffiliateWP_Store_Credit_Base {
 		 */
 		return apply_filters( 'affwp_store_credit_can_receive_store_credit', $ret, $affiliate_id, $referral );
 
+	}
+
+	/**
+	 * Gets affiliate rate for store credit.
+	 *
+	 * @since 2.3.4
+	 * 
+	 * @param float  $rate         The affiliate rate.
+	 * @param int    $affiliate_id Affiliate ID.
+	 * @param string $type         Rate type, usually 'flat' or 'percentage'.
+	 * @param string $reference    Optional. Reference. Default empty.
+	 * @return float Affiliate rate
+	 */
+	public function get_affiliate_rate( $rate, $affiliate_id, $type, $reference ) {
+		// Check if store credit active.
+		if ( ! affiliate_wp()->settings->get( 'store-credit' ) ) {
+			return $rate;
+		}
+
+		// Check if store credit active on user.
+		if( ! $this->can_receive_store_credit( $affiliate_id, null ) ) {
+			return $rate;
+		}
+
+		// Check if referral rate set for store credit.
+		$referral_rate_store_credit = affiliate_wp()->settings->get( 'store-credit-referral-rate', '' );
+		if( empty( $referral_rate_store_credit ) ) {
+			return $rate;
+		}
+
+		// Calculate referral rate for store credit.
+		$referral_rate_store_credit = affwp_abs_number_round( $referral_rate_store_credit );
+		$type_store_credit = affiliate_wp()->settings->get( 'store-credit-referral-rate-type', 'percentage' );
+		$referral_rate_store_credit = ( 'percentage' === $type_store_credit ) ? $referral_rate_store_credit / 100 : $referral_rate_store_credit;
+
+		return $referral_rate_store_credit;
+	}
+
+	/**
+	 * Gets affiliate flat rate basis for store credit.
+	 *
+	 * @since 2.3.4
+	 * 
+	 * @param string $type         Affiliate flat rate basis. Default values will be 'per_product' or 'per_order'.
+	 * @param int    $affiliate_id Affiliate ID.
+	 * @return string Affiliate flat rate basis.
+	 */
+	public function get_affiliate_flat_rate_basis( $type, $affiliate_id ) {
+		// Check if store credit active.
+		if ( ! affiliate_wp()->settings->get( 'store-credit' ) ) {
+			return $type;
+		}
+
+		// Check if store credit active on user.
+		if( ! $this->can_receive_store_credit( $affiliate_id, null ) ) {
+			return $type;
+		}
+
+		// Get Store Credit flat rate basis.
+		$type_store_credit = affiliate_wp()->settings->get( 'store-credit-flat-rate-basis', 'per_product' );
+
+		return $type_store_credit;
+	}
+
+	/**
+	 * Gets affiliate rate type for store credit.
+	 *
+	 * @since 2.3.4
+	 * 
+	 * @param string $type         Affiliate rate type. Default values will be 'percentage' or 'flat'.
+	 * @param int    $affiliate_id Affiliate ID.
+	 * @return string Affiliate rate type.
+	 */
+	public function get_affiliate_rate_type( $type, $affiliate_id ) {
+		// Check if store credit active.
+		if ( ! affiliate_wp()->settings->get( 'store-credit' ) ) {
+			return $type;
+		}
+
+		// Check if store credit active on user.
+		if( ! $this->can_receive_store_credit( $affiliate_id, null ) ) {
+			return $type;
+		}
+
+		// Get Store Credit referral rate type.
+		$type_store_credit = affiliate_wp()->settings->get( 'store-credit-referral-rate-type', 'percentage' );
+
+		return $type_store_credit;
 	}
 
 }

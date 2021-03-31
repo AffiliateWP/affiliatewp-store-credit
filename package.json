@@ -1,0 +1,13 @@
+{
+	"browserslist": "last 1 versions",
+	"devDependencies": {
+		"grunt-contrib-concat": "latest",
+		"grunt-contrib-uglify": "latest",
+		"grunt-contrib-watch": "latest",
+		"matchdep": "*"
+	},
+	"dependencies": {
+		"grunt": "^1.3.0",
+		"grunt-cli": "latest"
+	}
+}
