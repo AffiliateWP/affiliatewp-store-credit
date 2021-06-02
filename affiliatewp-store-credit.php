@@ -34,7 +34,7 @@ class AffiliateWP_SC_Requirements_Check extends AffiliateWP_Requirements_Check {
 	 * @since 2.4
 	 * @var   string
 	 */
-	protected $slug = 'affiliatewp-plugin-template';
+	protected $slug = 'affiliatewp-store-credit';
 
 	/**
 	 * Bootstrap everything.
