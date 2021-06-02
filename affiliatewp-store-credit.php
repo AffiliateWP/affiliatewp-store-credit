@@ -54,7 +54,7 @@ class AffiliateWP_SC_Requirements_Check extends AffiliateWP_Requirements_Check {
 				$activation = $activation->run();
 			}
 		} else {
-			\AffiliateWP_Plugin_Template::instance( __FILE__ );
+			\AffiliateWP_Store_Credit::instance( __FILE__ );
 		}
 	}
 
