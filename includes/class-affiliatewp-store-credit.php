@@ -1,13 +1,12 @@
 <?php
 /**
- * Plugin Name: AffiliateWP - Store Credit
- * Plugin URI: https://affiliatewp.com
- * Description: Pay AffiliateWP referrals as store credit
- * Author: Sandhills Development, LLC
- * Author URI: https://sandhillsdev.com
- * Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, tubiz, paninapress
- * Version: 2.3.4
- * Text Domain: affiliatewp-store-credit
+ * Core: Plugin Bootstrap
+ *
+ * @package     AffiliateWP Store Credit
+ * @subpackage  Core
+ * @copyright   Copyright (c) 2021, Sandhills Development, LLC
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @since       1.0.0
  */
 
 // Exit if accessed directly
