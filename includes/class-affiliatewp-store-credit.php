@@ -14,7 +14,11 @@ if( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
+/**
+ * Main plugin bootstrap.
+ *
+ * @since 1.0.0
+ */
 final class AffiliateWP_Store_Credit {
 
 	/**
