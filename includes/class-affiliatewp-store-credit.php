@@ -42,6 +42,14 @@ final class AffiliateWP_Store_Credit {
 	private static $version;
 
 	/**
+	 * Main plugin file.
+	 *
+	 * @since 2.4
+	 * @var   string
+	 */
+	public $file;
+
+	/**
 	 * True if the AffiliateWP core debugger is active.
 	 *
 	 * @since 2.1.2
@@ -63,13 +71,16 @@ final class AffiliateWP_Store_Credit {
 	 * @since 2.0.0
 	 * @static
 	 * @staticvar array $instance
+	 *
+	 * @param string $file Main plugin file.
 	 * @return The one true AffiliateWP_Store_Credit
 	 */
-	public static function instance() {
+	public static function instance( $file = '' ) {
 		if( ! isset( self::$instance ) && ! ( self::$instance instanceof AffiliateWP_Store_Credit ) ) {
 			self::$instance = new AffiliateWP_Store_Credit;
+			self::$instance->file = $file;
 
-			self::$plugin_dir = plugin_dir_path( __FILE__ );
+			self::$plugin_dir = plugin_dir_path( self::$instance->file );
 			self::$version = '2.3.4';
 
 			self::$instance->setup_constants();
@@ -133,7 +144,7 @@ final class AffiliateWP_Store_Credit {
 	 */
 	public function load_textdomain() {
 		// Set filter for plugin language directory
-		$lang_dir = dirname( plugin_basename( __FILE__ ) ) . '/languages/';
+		$lang_dir = dirname( plugin_basename( $this->file ) ) . '/languages/';
 		$lang_dir = apply_filters( 'affiliatewp_store_credit_languages_directory', $lang_dir );
 
 		// Traditional WordPress plugin locale filter
@@ -237,15 +248,5 @@ final class AffiliateWP_Store_Credit {
  * @return object The one true AffiliateWP_Store_Credit instance
  */
 function affiliatewp_store_credit() {
-	if ( ! class_exists( 'Affiliate_WP' ) ) {
-        if ( ! class_exists( 'AffiliateWP_Activation' ) ) {
-            require_once 'includes/class-activation.php';
-        }
-
-        $activation = new AffiliateWP_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
-        $activation = $activation->run();
-    } else {
-        return AffiliateWP_Store_Credit::instance();
-    }
+    return AffiliateWP_Store_Credit::instance();
 }
-add_action( 'plugins_loaded', 'affiliatewp_store_credit', 100 );
