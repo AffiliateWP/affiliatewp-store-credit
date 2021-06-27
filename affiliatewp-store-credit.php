@@ -8,6 +8,22 @@
  * Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, tubiz, paninapress
  * Version: 2.3.4
  * Text Domain: affiliatewp-store-credit
+ *
+ * AffiliateWP is distributed under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ *
+ * AffiliateWP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with AffiliateWP. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package AffiliateWP Store Credit
+ * @category Core
+ * @version 2.3.4
  */
 
 // Exit if accessed directly
@@ -34,7 +50,7 @@ class AffiliateWP_SC_Requirements_Check extends AffiliateWP_Requirements_Check {
 	 * @since 2.4
 	 * @var   string
 	 */
-	protected $slug = 'affiliatewp-plugin-template';
+	protected $slug = 'affiliatewp-store-credit';
 
 	/**
 	 * Add-on requirements.
@@ -90,8 +106,13 @@ class AffiliateWP_SC_Requirements_Check extends AffiliateWP_Requirements_Check {
 		// Maybe hook-in the bootstrapper.
 		if ( class_exists( 'AffiliateWP_Store_Credit' ) ) {
 
-			// Bootstrap to plugins_loaded.
-			add_action( 'plugins_loaded', array( $this, 'bootstrap' ), 100 );
+			$affwp_version = get_option( 'affwp_version' );
+
+			if ( version_compare( $affwp_version, '2.7', '<' ) ) {
+				add_action( 'plugins_loaded', array( $this, 'bootstrap' ), 100 );
+			} else {
+				add_action( 'affwp_plugins_loaded', array( $this, 'bootstrap' ), 100 );
+			}
 
 			// Register the activation hook.
 			register_activation_hook( __FILE__, array( $this, 'install' ) );

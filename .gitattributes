@@ -1,0 +1,28 @@
+# Items to ignore when downloading a zip
+
+# GitHub
+.gitignore            export-ignore
+.gitattributes        export-ignore
+/.github/             export-ignore
+
+# Build Configs
+/.buildkite/          export-ignore
+/bin/                 export-ignore
+postcss.config.js     export-ignore
+tailwind.config.js    export-ignore
+webpack.config.js     export-ignore
+webpack.dev.config.js export-ignore
+/grunt/               export-ignore
+Gruntfile.js          export-ignore
+
+# Packages / Dependencies
+package.json          export-ignore
+package-lock.json     export-ignore
+composer.json         export-ignore
+composer.lock         export-ignore
+/vendor/              export-ignore
+
+# Tests / Other
+/tests/               export-ignore
+phpunit.xml           export-ignore
+README.md             export-ignore

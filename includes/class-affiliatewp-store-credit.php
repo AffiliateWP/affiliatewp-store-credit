@@ -6,7 +6,7 @@
  * @subpackage  Core
  * @copyright   Copyright (c) 2021, Sandhills Development, LLC
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0.0
+ * @since       2.4
  */
 
 // Exit if accessed directly
@@ -30,20 +30,12 @@ final class AffiliateWP_Store_Credit {
 	private static $instance;
 
 	/**
-	 * Plugin directory.
-	 *
-	 * @since 0.1
-	 * @var   string $plugin_dir
-	 */
-	private static $plugin_dir;
-
-	/**
 	 * The plugin version.
 	 *
 	 * @since 0.1
 	 * @var   float $version
 	 */
-	private static $version;
+	private $version = '2.3.4';
 
 	/**
 	 * Main plugin file.
@@ -77,15 +69,12 @@ final class AffiliateWP_Store_Credit {
 	 * @staticvar array $instance
 	 *
 	 * @param string $file Main plugin file.
-	 * @return The one true AffiliateWP_Store_Credit
+	 * @return \AffiliateWP_Store_Credit The one true AffiliateWP_Store_Credit
 	 */
 	public static function instance( $file = '' ) {
 		if( ! isset( self::$instance ) && ! ( self::$instance instanceof AffiliateWP_Store_Credit ) ) {
 			self::$instance = new AffiliateWP_Store_Credit;
 			self::$instance->file = $file;
-
-			self::$plugin_dir = plugin_dir_path( self::$instance->file );
-			self::$version = '2.3.4';
 
 			self::$instance->setup_constants();
 			self::$instance->load_textdomain();
@@ -131,11 +120,25 @@ final class AffiliateWP_Store_Credit {
 	 * @return void
 	 */
 	private function setup_constants() {
-		// Plugin version
+		// Plugin version.
 		if ( ! defined( 'AFFWP_SC_VERSION' ) ) {
-			define( 'AFFWP_SC_VERSION', self::$version );
+			define( 'AFFWP_SC_VERSION', $this->version );
 		}
 
+		// Plugin Folder Path.
+		if ( ! defined( 'AFFWP_SC_PLUGIN_DIR' ) ) {
+			define( 'AFFWP_SC_PLUGIN_DIR', plugin_dir_path( $this->file ) );
+		}
+
+		// Plugin Folder URL.
+		if ( ! defined( 'AFFWP_SC_PLUGIN_URL' ) ) {
+			define( 'AFFWP_SC_PLUGIN_URL', plugin_dir_url( $this->file ) );
+		}
+
+		// Plugin Root File.
+		if ( ! defined( 'AFFWP_SC_PLUGIN_FILE' ) ) {
+			define( 'AFFWP_SC_PLUGIN_FILE', $this->file );
+		}
 	}
 
 
@@ -182,13 +185,13 @@ final class AffiliateWP_Store_Credit {
 	private function includes() {
 
 		// Functions.
-		require_once self::$plugin_dir . 'includes/functions.php';
+		require_once AFFWP_SC_PLUGIN_DIR . 'includes/functions.php';
 
 		if ( is_admin() ) {
-			require_once self::$plugin_dir . 'includes/admin/settings.php';
+			require_once AFFWP_SC_PLUGIN_DIR . 'includes/admin/settings.php';
 
 			// Upgrade class.
-			require_once self::$plugin_dir . 'includes/admin/class-upgrades.php';
+			require_once AFFWP_SC_PLUGIN_DIR . 'includes/admin/class-upgrades.php';
 		}
 
 		// Check that store credit is enabled
@@ -196,20 +199,20 @@ final class AffiliateWP_Store_Credit {
 			return;
 		}
 
-		require_once self::$plugin_dir . 'integrations/class-base.php';
+		require_once AFFWP_SC_PLUGIN_DIR . 'integrations/class-base.php';
 
 		// Load the class for each integration enabled
 		foreach( affiliate_wp()->integrations->get_enabled_integrations() as $filename => $integration ) {
-			if( file_exists( self::$plugin_dir . 'integrations/class-' . $filename . '.php' ) ) {
-				require_once self::$plugin_dir . 'integrations/class-' . $filename . '.php';
+			if( file_exists( AFFWP_SC_PLUGIN_DIR . 'integrations/class-' . $filename . '.php' ) ) {
+				require_once AFFWP_SC_PLUGIN_DIR . 'integrations/class-' . $filename . '.php';
 			}
 		}
 
 		// Front-end; renders in affiliate dashboard statistics area
-		require_once self::$plugin_dir . 'includes/dashboard.php';
+		require_once AFFWP_SC_PLUGIN_DIR . 'includes/dashboard.php';
 
 		// Shortcode.
-		require_once self::$plugin_dir . 'includes/class-shortcode.php';
+		require_once AFFWP_SC_PLUGIN_DIR . 'includes/class-shortcode.php';
 
 	}
 
