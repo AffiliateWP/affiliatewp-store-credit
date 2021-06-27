@@ -8,6 +8,22 @@
  * Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, tubiz, paninapress
  * Version: 2.3.4
  * Text Domain: affiliatewp-store-credit
+ *
+ * AffiliateWP is distributed under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ *
+ * AffiliateWP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with AffiliateWP. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package AffiliateWP Store Credit
+ * @category Core
+ * @version 2.3.4
  */
 
 // Exit if accessed directly
