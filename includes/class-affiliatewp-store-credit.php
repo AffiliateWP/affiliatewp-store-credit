@@ -35,7 +35,7 @@ final class AffiliateWP_Store_Credit {
 	 * @since 0.1
 	 * @var   float $version
 	 */
-	private $version = '2.3.4';
+	private $version = '2.4';
 
 	/**
 	 * Main plugin file.

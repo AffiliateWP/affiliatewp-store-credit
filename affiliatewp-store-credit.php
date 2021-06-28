@@ -6,7 +6,7 @@
  * Author: Sandhills Development, LLC
  * Author URI: https://sandhillsdev.com
  * Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, tubiz, paninapress
- * Version: 2.3.4
+ * Version: 2.4
  * Text Domain: affiliatewp-store-credit
  *
  * AffiliateWP is distributed under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
  *
  * @package AffiliateWP Store Credit
  * @category Core
- * @version 2.3.4
+ * @version 2.4
  */
 
 // Exit if accessed directly
