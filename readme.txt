@@ -7,13 +7,13 @@ Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214,
 Tags: affiliatewp, affiliates, store credit, woo, woocommerce, easy digital downloads, edd
 License: GPLv2 or later
 Tested up to: 5.7
-Requires PHP: 5.3
-Stable tag: 2.3.4
-Requires at least: 3.5
+Requires PHP: 5.6
+Stable tag: 2.4
+Requires at least: 5.0
 
 == Description ==
 
-> This plugin requires [AffiliateWP](https://affiliatewp.com/ "AffiliateWP") v1.7+ in order to function.
+> This plugin requires [AffiliateWP](https://affiliatewp.com/ "AffiliateWP") v2.6+ in order to function.
 
 This plugin allows you to pay your affiliates in store credit. At this time it supports the WooCommerce and Easy Digital Downloads integrations in AffiliateWP.
 
@@ -69,6 +69,12 @@ A: Yes! There is an option that lets site admins enable that profile setting for
 
 
 == Changelog ==
+
+= Version 2.4, June 28, 2021 =
+* New: Enforce minimum dependency requirements checking
+* New: Requires PHP 5.6 minimum
+* New: Requires WordPress 5.0 minimum
+* New: Requires AffiliateWP 2.6 minimum
 
 = Version 2.3.4, March 22, 2021 =
 * Improved: Add indicator to see what referrals should be paid in Store Credit

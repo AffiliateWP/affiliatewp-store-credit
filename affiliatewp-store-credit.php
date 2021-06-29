@@ -6,247 +6,168 @@
  * Author: Sandhills Development, LLC
  * Author URI: https://sandhillsdev.com
  * Contributors: ryanduff, ramiabraham, mordauk, sumobi, patrickgarman, section214, tubiz, paninapress
- * Version: 2.3.4
+ * Version: 2.4
  * Text Domain: affiliatewp-store-credit
+ *
+ * AffiliateWP is distributed under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ *
+ * AffiliateWP is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with AffiliateWP. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package AffiliateWP Store Credit
+ * @category Core
+ * @version 2.4
  */
 
 // Exit if accessed directly
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
-final class AffiliateWP_Store_Credit {
-
-	/**
-	 * The AffiliateWP_Store_Credit singleton instance.
-	 *
-	 * @since 0.1
-	 * @var AffiliateWP_Store_Credit instance.
-	 */
-	private static $instance;
-
-	/**
-	 * Plugin directory.
-	 *
-	 * @since 0.1
-	 * @var   string $plugin_dir
-	 */
-	private static $plugin_dir;
-
-	/**
-	 * The plugin version.
-	 *
-	 * @since 0.1
-	 * @var   float $version
-	 */
-	private static $version;
-
-	/**
-	 * True if the AffiliateWP core debugger is active.
-	 *
-	 * @since 2.1.2
-	 * @var   boolean $debug  Debug variable.
-	 */
-	public $debug;
-
-	/**
-	 * Holds the instance of Affiliate_WP_Logging.
-	 *
-	 * @since 2.1.2
-	 * @var   array $logs  Error logs.
-	 */
-	public $logs;
-
-	/**
-	 * Main AffiliateWP_Store_Credit instance
-	 *
-	 * @since 2.0.0
-	 * @static
-	 * @staticvar array $instance
-	 * @return The one true AffiliateWP_Store_Credit
-	 */
-	public static function instance() {
-		if( ! isset( self::$instance ) && ! ( self::$instance instanceof AffiliateWP_Store_Credit ) ) {
-			self::$instance = new AffiliateWP_Store_Credit;
-
-			self::$plugin_dir = plugin_dir_path( __FILE__ );
-			self::$version = '2.3.4';
-
-			self::$instance->setup_constants();
-			self::$instance->load_textdomain();
-			self::$instance->includes();
-			self::$instance->init();
-		}
-
-		return self::$instance;
-	}
-
-
-	/**
-	 * Throws an error on object clone.
-	 *
-	 * @since 2.0.0
-	 * @access protected
-	 * @return void
-	 */
-	public function __clone() {
-		// Cloning instance of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'affiliatewp-store-credit' ), '2.1.1' );
-	}
-
-
-	/**
-	 * Disables unserializing of the class.
-	 *
-	 * @since 2.0.0
-	 * @access protected
-	 * @return void
-	 */
-	public function __wakeup() {
-		// Unserializing instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'affiliatewp-store-credit' ), '2.1.1' );
-	}
-
-
-	/**
-	 * Setup plugin constants.
-	 *
-	 * @access private
-	 * @since 2.3
-	 * @return void
-	 */
-	private function setup_constants() {
-		// Plugin version
-		if ( ! defined( 'AFFWP_SC_VERSION' ) ) {
-			define( 'AFFWP_SC_VERSION', self::$version );
-		}
-
-	}
-
-
-	/**
-	 * Loads the plugin language files.
-	 *
-	 * @since 0.1
-	 * @access public
-	 * @return void
-	 */
-	public function load_textdomain() {
-		// Set filter for plugin language directory
-		$lang_dir = dirname( plugin_basename( __FILE__ ) ) . '/languages/';
-		$lang_dir = apply_filters( 'affiliatewp_store_credit_languages_directory', $lang_dir );
-
-		// Traditional WordPress plugin locale filter
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'affiliatewp-store-credit' );
-		$mofile = sprintf( '%1$s-%2$s.mo', 'affiliatewp-store-credit', $locale );
-
-		// Setup paths to current locale file
-		$mofile_local = $lang_dir . $mofile;
-		$mofile_global = WP_LANG_DIR . '/affiliatewp-store-credit/' . $mofile;
-
-		if( file_exists( $mofile_global ) ) {
-			// Look in global /wp-content/languages/affiliatewp-store-credit/ folder
-			load_textdomain( 'affiliatewp-store-credit', $mofile_global );
-		} elseif( file_exists( $mofile_local ) ) {
-			// Look in local /wp-content/plugins/affiliatewp-store-credit/ folder
-			load_textdomain( 'affiliatewp-store-credit', $mofile_local );
-		} else {
-			// Load the default language files
-			load_plugin_textdomain( 'affiliatewp-store-credit', false, $lang_dir );
-		}
-	}
-
-
-	/**
-	 * Includes required files.
-	 *
-	 * @since 2.0.0
-	 * @access private
-	 * @return void
-	 */
-	private function includes() {
-
-		// Functions.
-		require_once self::$plugin_dir . 'includes/functions.php';
-
-		if ( is_admin() ) {
-			require_once self::$plugin_dir . 'includes/admin/settings.php';
-
-			// Upgrade class.
-			require_once self::$plugin_dir . 'includes/admin/class-upgrades.php';
-		}
-
-		// Check that store credit is enabled
-		if( ! affiliate_wp()->settings->get( 'store-credit' ) ) {
-			return;
-		}
-
-		require_once self::$plugin_dir . 'integrations/class-base.php';
-
-		// Load the class for each integration enabled
-		foreach( affiliate_wp()->integrations->get_enabled_integrations() as $filename => $integration ) {
-			if( file_exists( self::$plugin_dir . 'integrations/class-' . $filename . '.php' ) ) {
-				require_once self::$plugin_dir . 'integrations/class-' . $filename . '.php';
-			}
-		}
-
-		// Front-end; renders in affiliate dashboard statistics area
-		require_once self::$plugin_dir . 'includes/dashboard.php';
-
-		// Shortcode.
-		require_once self::$plugin_dir . 'includes/class-shortcode.php';
-
-	}
-
-	/**
-	 * Defines init processes for this instance.
-	 *
-	 * @since  2.1.2
-	 *
-	 * @return void
-	 */
-	public function init() {
-		$this->debug = (bool) affiliate_wp()->settings->get( 'debug_mode', false );
-
-		if( $this->debug ) {
-			$this->logs = new Affiliate_WP_Logging;
-		}
-	}
-
-	/**
-	 * Writes a log message.
-	 *
-	 * @access  public
-	 * @since   2.1.2
-	 *
-	 * @param string $message An optional message to log. Default is an empty string.
-	 */
-	public function log( $message = '' ) {
-
-		if ( $this->debug ) {
-			$this->logs->log( $message );
-		}
-	}
+if ( ! class_exists( 'AffiliateWP_Requirements_Check' ) ) {
+	require_once dirname( __FILE__ ) . '/includes/lib/affwp/class-affiliatewp-requirements-check.php';
 }
 
 /**
- * The main function responsible for returning the one true AffiliateWP_Store_Credit
- * instance to functions everywhere.
+ * Class used to check requirements for and bootstrap the plugin.
  *
- * @since 2.0.0
- * @return object The one true AffiliateWP_Store_Credit instance
+ * @since 2.4
+ *
+ * @see Affiliate_WP_Requirements_Check
  */
-function affiliatewp_store_credit() {
-	if ( ! class_exists( 'Affiliate_WP' ) ) {
-        if ( ! class_exists( 'AffiliateWP_Activation' ) ) {
-            require_once 'includes/class-activation.php';
-        }
+class AffiliateWP_SC_Requirements_Check extends AffiliateWP_Requirements_Check {
 
-        $activation = new AffiliateWP_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
-        $activation = $activation->run();
-    } else {
-        return AffiliateWP_Store_Credit::instance();
-    }
+	/**
+	 * Plugin slug.
+	 *
+	 * @since 2.4
+	 * @var   string
+	 */
+	protected $slug = 'affiliatewp-store-credit';
+
+	/**
+	 * Add-on requirements.
+	 *
+	 * @since 1.0.0
+	 * @var   array[]
+	 */
+	protected $addon_requirements = array(
+		// AffiliateWP.
+		'affwp' => array(
+			'minimum' => '2.6',
+			'name'    => 'AffiliateWP',
+			'exists'  => true,
+			'current' => false,
+			'checked' => false,
+			'met'     => false
+		),
+	);
+
+	/**
+	 * Bootstrap everything.
+	 *
+	 * @since 2.4
+	 */
+	public function bootstrap() {
+		if ( ! class_exists( 'Affiliate_WP' ) ) {
+
+			if ( ! class_exists( 'AffiliateWP_Activation' ) ) {
+				require_once 'includes/lib/affwp/class-affiliatewp-activation.php';
+			}
+
+			// AffiliateWP activation
+			if ( ! class_exists( 'Affiliate_WP' ) ) {
+				$activation = new AffiliateWP_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
+				$activation = $activation->run();
+			}
+		} else {
+			\AffiliateWP_Store_Credit::instance( __FILE__ );
+		}
+	}
+
+	/**
+	 * Loads the add-on.
+	 *
+	 * @since 2.4
+	 */
+	protected function load() {
+		// Maybe include the bundled bootstrapper.
+		if ( ! class_exists( 'AffiliateWP_Store_Credit' ) ) {
+			require_once dirname( __FILE__ ) . '/includes/class-affiliatewp-store-credit.php';
+		}
+
+		// Maybe hook-in the bootstrapper.
+		if ( class_exists( 'AffiliateWP_Store_Credit' ) ) {
+
+			$affwp_version = get_option( 'affwp_version' );
+
+			if ( version_compare( $affwp_version, '2.7', '<' ) ) {
+				add_action( 'plugins_loaded', array( $this, 'bootstrap' ), 100 );
+			} else {
+				add_action( 'affwp_plugins_loaded', array( $this, 'bootstrap' ), 100 );
+			}
+
+			// Register the activation hook.
+			register_activation_hook( __FILE__, array( $this, 'install' ) );
+		}
+	}
+
+	/**
+	 * Install, usually on an activation hook.
+	 *
+	 * @since 2.4
+	 */
+	public function install() {
+		// Bootstrap to include all of the necessary files
+		$this->bootstrap();
+
+		if ( defined( 'AFFWP_SC_VERSION' ) ) {
+			update_option( 'affwp_sc_version', AFFWP_SC_VERSION );
+		}
+	}
+
+	/**
+	 * Plugin-specific aria label text to describe the requirements link.
+	 *
+	 * @since 2.4
+	 *
+	 * @return string Aria label text.
+	 */
+	protected function unmet_requirements_label() {
+		return esc_html__( 'AffiliateWP - Store Credit Requirements', 'affiliatewp-store-credit' );
+	}
+
+	/**
+	 * Plugin-specific text used in CSS to identify attribute IDs and classes.
+	 *
+	 * @since 2.4
+	 *
+	 * @return string CSS selector.
+	 */
+	protected function unmet_requirements_name() {
+		return 'affiliatewp-store-credit-requirements';
+	}
+
+	/**
+	 * Plugin specific URL for an external requirements page.
+	 *
+	 * @since 2.4
+	 *
+	 * @return string Unmet requirements URL.
+	 */
+	protected function unmet_requirements_url() {
+		return 'https://docs.affiliatewp.com/article/2361-minimum-requirements-roadmaps';
+	}
+
 }
-add_action( 'plugins_loaded', 'affiliatewp_store_credit', 100 );
+
+$requirements = new AffiliateWP_SC_Requirements_Check( __FILE__ );
+
+$requirements->maybe_load();

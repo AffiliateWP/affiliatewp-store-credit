@@ -1,0 +1,96 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "1c6fbdca9703cdb73ab3d3c8b35dc7fb",
+    "packages": [
+        {
+            "name": "affiliatewp/affwp-addon-tools",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:AffiliateWP/affwp-addon-tools.git",
+                "reference": "d3fac9d2d3da1f2625722b2d0659ad7d99b0e9fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AffiliateWP/affwp-addon-tools/zipball/d3fac9d2d3da1f2625722b2d0659ad7d99b0e9fb",
+                "reference": "d3fac9d2d3da1f2625722b2d0659ad7d99b0e9fb",
+                "shasum": ""
+            },
+            "type": "library",
+            "license": [
+                "GPLv2"
+            ],
+            "description": "Classes and code used by AffiliateWP and its add-ons.",
+            "support": {
+                "source": "https://github.com/AffiliateWP/affwp-addon-tools/tree/1.0.0",
+                "issues": "https://github.com/AffiliateWP/affwp-addon-tools/issues"
+            },
+            "time": "2021-03-19T09:44:43+00:00"
+        },
+        {
+            "name": "mnsami/composer-custom-directory-installer",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mnsami/composer-custom-directory-installer.git",
+                "reference": "8cc82e0c5801cc3bf53ba452afdcaa5c6ff645a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mnsami/composer-custom-directory-installer/zipball/8cc82e0c5801cc3bf53ba452afdcaa5c6ff645a5",
+                "reference": "8cc82e0c5801cc3bf53ba452afdcaa5c6ff645a5",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "php": ">=5.3"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": [
+                    "Composer\\CustomDirectoryInstaller\\LibraryPlugin",
+                    "Composer\\CustomDirectoryInstaller\\PearPlugin",
+                    "Composer\\CustomDirectoryInstaller\\PluginPlugin"
+                ],
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Composer\\CustomDirectoryInstaller": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mina Nabil Sami",
+                    "email": "mina.nsami@gmail.com"
+                }
+            ],
+            "description": "A composer plugin, to help install packages of different types in custom paths.",
+            "keywords": [
+                "composer",
+                "composer-installer",
+                "composer-plugin"
+            ],
+            "time": "2016-05-25T08:26:02+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
+}
